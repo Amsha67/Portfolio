@@ -4,10 +4,62 @@ header {
     margin: 0;
 }
 
+body menu {
+    margin: 0;
+    padding: 20px;
+    margin-left: 600px;
+
+}
+
+body menu button {
+    margin: 0;
+    padding: 5px;
+
+}
+
+.photo {
+    margin-left: 900px;
+    border-top-left-radius: 300px;
+    border-top-right-radius: 300px;
+}
+
+
+
 body {
     background-color: burlywood;
     margin: 0;
 }
+
+body h1 {
+
+    position: relative;
+    left: 300px;
+    top: 200px;
+
+}
+
+header img {
+    margin-left: 150px;
+}
+
+
+main #apropos {
+
+    position: relative;
+    text-align: center;
+    bottom: 350px;
+    right: 300px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 footer {
@@ -20,7 +72,7 @@ main {
 }
 
 main h2 {
-    background-color: blue;
+
     color: crimson;
 }
 
