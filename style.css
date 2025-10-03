@@ -51,12 +51,22 @@ main #apropos {
     right: 300px;
 }
 
+main #technologie h2 {
+    margin-left: 450px;
+    
+}
 
+#html {
+    margin-left: 800px;
+}
 
+#css {
+    margin-left: 1000px;
+}
 
-
-
-
+#github {
+    margin-left: 1200px;
+}
 
 
 
