@@ -62,7 +62,6 @@ body menu button {
 
 
 body {
-
     margin: 0;
 }
 
@@ -86,7 +85,9 @@ main #apropos {
     bottom: 350px;
     right: 300px;
 }
-
+#softskill { 
+    background-color: aqua;
+}
 main #technologie h2 {
     margin-left: 450px;
 
