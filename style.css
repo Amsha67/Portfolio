@@ -4,6 +4,41 @@ header {
     margin: 0;
 }
 
+header menu button {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+header menu button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(5, 182, 252, 0.8);
+}
+
+header menu a[href="#apropos"] button {
+  background-color: black;          
+}
+
+header menu a[href="#softskill"] button {
+  background-color: mediumpurple;   
+}
+
+header menu a[href="#realisation"] button {
+  background-color: yellow;
+  color: black;                    
+}
+
+header menu a[href="#technologie"] button {
+  background-color: coral;          
+}
+
+
+
 body menu {
     margin: 0;
     padding: 20px;
@@ -18,6 +53,7 @@ body menu button {
 }
 
 .photo {
+
     margin-left: 900px;
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
@@ -26,7 +62,7 @@ body menu button {
 
 
 body {
-    background-color: burlywood;
+
     margin: 0;
 }
 
@@ -78,7 +114,8 @@ footer {
 }
 
 main {
-    color: deeppink
+    background-color: burlywood;
+    color: rgb(20, 187, 238)
 }
 
 main h2 {
@@ -87,5 +124,36 @@ main h2 {
 }
 
 main h3 {
-    color: darkorange;
+    color: rgb(77, 45, 6);
+}
+
+#apropos {
+    background-color: rgb(0, 0, 0);
+}
+
+#technologie {
+    background-color: coral;
+}
+
+#softskill {
+    background-color: mediumpurple;
+    position: relative;
+
+}
+#softskill li {
+    position: relative;
+    margin-left: 800px;
+    
+}
+#softskill h2 {
+    margin-left: 800px;
+}
+#softskill img {
+    position: relative;
+    margin-left: 150px;
+    
+}
+
+#realisation {
+    background-color: yellow;
 }
