@@ -1,0 +1,184 @@
+header menu button {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+header menu button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(5, 182, 252, 0.8);
+}
+
+header menu a[href="#apropos"] button {
+    background-color: black;
+}
+
+header menu a[href="#softskill"] button {
+    background-color: mediumpurple;
+}
+
+header menu a[href="#realisation"] button {
+    background-color: yellow;
+    color: black;
+}
+
+header menu a[href="#technologie"] button {
+    background-color: coral;
+}
+
+
+
+
+header {
+    background-image: url('textures/header_stone.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 200, 100, 0.7);
+}
+
+
+body {
+    background-image: url('textures/.png');
+    background-size: cover;
+    background-attachment: fixed;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fffaf0;
+}
+
+
+#apropos {
+    background-image: url('textures/.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+
+#softskill {
+    background-image: url('textures/');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#technologie {
+    background-image: url('textures/');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#realisation {
+    background-image: url('textures/.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #1a1a1a;
+}
+
+
+footer {
+    background-image: url('textures/.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+}
+
+
+body menu {
+    margin: 0;
+    padding: 20px;
+    margin-left: 600px;
+
+}
+
+body menu button {
+    margin: 0;
+    padding: 5px;
+
+}
+
+.photo {
+
+    margin-left: 900px;
+    border-top-left-radius: 300px;
+    border-top-right-radius: 300px;
+}
+
+
+
+body {
+    margin: 0;
+
+
+}
+
+body h1 {
+
+    position: relative;
+    left: 300px;
+    top: 200px;
+
+}
+
+header img {
+    margin-left: 150px;
+}
+
+
+main #apropos {
+
+    position: relative;
+    text-align: center;
+    bottom: 350px;
+    right: 300px;
+}
+
+
+main #technologie h2 {
+    margin-left: 450px;
+
+}
+
+#html {
+    margin-left: 800px;
+}
+
+#css {
+    margin-left: 1000px;
+}
+
+#github {
+    margin-left: 1200px;
+}
+
+
+
+#softskill li {
+    position: relative;
+    margin-left: 800px;
+
+}
+
+#softskill h2 {
+    margin-left: 800px;
+}
+
+#softskill img {
+    position: relative;
+    margin-left: 150px;
+
+}

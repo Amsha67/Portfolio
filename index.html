@@ -3,16 +3,16 @@
 
 <head>
     <title>Schmoelzlin Eric portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./Asset/style.css" />
 </head>
 
 <body>
     <header>
         <menu>
-            <button id="apropos">A propos</button>
-            <button id="softskill">Soft skills</button>
-            <button id="realisation">Réalisations</button>
-            <button id="technologie">Technologies</button>
+            <a href="#apropos"><button>A propos</button></a>
+            <a href="#softskill"><button>Soft skills</button></a>
+            <a href="#realisation"><button>Réalisations</button></a>
+            <a href="#technologie"><button>Technologies</button></a>
         </menu>
     </header>
 
@@ -20,24 +20,33 @@
     <main>
         <h1>Portfolio
             Schmoelzlin Eric</h1>
-        <img class="photo" src="Asset/icon.png" alt="carré noir">
+        <img class="photo" src="Asset/image/icon.png" alt="carré noir">
         <section id="apropos">
             <h2>A propos</h2>
-            <p> Je m'appelle Schmoelzlin Eric, 29 ans, en réorientation professionnel, étudiant en BTS SIO option
-                SLAM.<br>
-                Passionné par le développement web, j'apprécie
-                particulièrement la partie CSS pour son aspect créatif et visuel.<br>
-                À l’aise avec les outils comme GitHub et
-                vscode, je m'oriente vers le métier de développeur front-end.<br>
-                Actuellement, je suis à la recherche d'une alternance pour<br>
+            <p> Je m'appelle Schmoelzlin Eric, 29 ans, en réorientation professionnel, actuellement étudiant en BTS SIO
+                premère
+                année<br>
+                Après plusieurs années à Travailler dans différents secteurs, notament la cuisine, j'ai décidé de
+                reprendre des études dans un domain qui me passione depuis toujours, l'informatique.<br>
+                Passionné depuis toujours j'ai pour habitude d'apprendre en autodidact quand
+                quelquechose sucite mon intérêt <br>
+                J'ai également décroché un diplôme en Art visuel a l'Université de Strasbourg ce qui me démarque de pars
+                l'attention que je porte au détails et à l'esthétique de mes projets <br>
+                C'est pourquoi le développement web m'interesse particulièrement.<br>
+                Actuellement, je suis à la recherche d'une alternance pour
                 approfondir mes compétences et évoluer dans un environnement professionnel.</p>
         </section>
         <section id="technologie">
             <h2>Technologie</h2>
             <ul>
-                <li id="html">HTML <img class="logo1" src="Asset/html.png" alt="html logo" widht="50" height="50"> </li>
-                <li id="css">CSS <img class="logo2" src="Asset/css.png" alt="css logo" widht="50" height="50"></li>
-                <li id="github">GITHUB <img class="logo3" src="Asset/git.png" alt="git logo" widht="50" height="50">
+                <li id="html">HTML <img class="logohtml" src="Asset/image/html.png"
+                        alt="Logo html 5 qui représente un bouclier bleu avec un 5 inscrit" widht="50" height="50">
+                </li>
+                <li id="css">CSS <img class="logocss" src="Asset/image/css.png"
+                        alt="Logo css 3 qui représente un bouclier orange avec un 3 inscrit" widht="50" height="50">
+                </li>
+                <li id="React">React <img class="logoreact" src="Asset/image/react.png"
+                        alt="Logo react qui représente un atome bleu" widht="35" height="35">
                 </li>
             </ul>
         </section>
@@ -49,29 +58,35 @@
                 <li>Empathie</li>
                 <li>Remise en question</li>
             </ul>
+            <img src="asset/skills.jpg" alt="Image d'une roue de compétences" height="200" width="280">
+
         </section>
         <section id="realisation">
-            <h2>Réalisation</h2>
+            <h2>Réalisations</h2>
             <ul>
-                <h3><b> Application Web de Gestion de Clients</b></h3>
-                <li>Technos : PHP, Laravel, MySQL </li>
-                <li> Objectif : Créer une interface web permettant de gérer des clients (CRUD), avec
-                    authentification.
-                <li>Fonctionnalités : Login sécurisé, listing, ajout/modification/suppression de clients,
-                    pagination.
+                <h3>Developpement WEB</h3>
+                <li>Technos : HTML,CSS, React. </li>
+                <li> Objectif : Création d'un site web sur la demande du client.</li>
+
             </ul>
             <ul>
-                <h3> <b> Déploiement d’un Serveur Active Directory</b></h3>
-                <li>Technos : Windows Server 2019 </li>
-                <li>Objectif : Mettre en place un domaine d’entreprise avec gestion centralisée des utilisateurs.</li>
-                <li> Fonctionnalités : DNS, DHCP, GPO, script de login.</li>
+                <h3>Déploiement d’une machine virtuel</h3>
+                <li>Technos : Vmware. </li>
+                <li>Objectif : Faire tourner des VM pour tester des applications ou relever des failles de securité.
+                </li>
             </ul>
         </section>
 
     </main>
     <footer>
         <h2>Contact :</h2>
-        <p><a href="https://www.linkedin.com/in/eric-schmoelzlin-824274220/">Linkedin</a><br>
+        <p>
+            <img class="logolinkedin" src="Asset/image/linkedin.png"
+                alt="logo Linkedin d'un carré bleu dans lequel figure un i et un n" widht="40" height="40">
+            <a href="https://www.linkedin.com/in/eric-schmoelzlin-824274220/">Linkedin</a><br>
+            <img class="logogit" src="Asset/image/git.png"
+                alt="Logo git composé d'un rond noir dans lequel on voit la silhouette d'un chat" widht="50"
+                height="50">
             <a href="https://github.com/Amsha67">Github</a>
         </p>
     </footer>
