@@ -1,18 +1,15 @@
 html,
-body {
-    height: 100%;
-    margin: 0;
-    font-family: "Georgia", serif;
-    color: #2b1b0f;
-}
-
 
 body {
     background-image: url('./image/textures/fond2.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    margin: 0;
+    font-family: "Georgia", serif;
+    color: #2b1b0f;
 }
+
 
 
 header {
@@ -60,21 +57,42 @@ header menu button:hover {
 }
 
 
+
+
 main {
     max-width: 1100px;
     margin: 40px auto;
     padding: 32px 28px;
-    background-image: url('./Asset/image/textures/parcho.jpg');
+    background-image: url('./image/textures/parcho.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
-    position: relative;
+
     z-index: 20;
+
+    display: flex;
+    flex-direction: column;
 }
 
 
+#technologie {
+    align-self: flex-end;
+    width: 50%;
+    gap: 20px;
+    display: flex;
+}
+
+
+
+
 #apropos {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    gap: 40px;
+
     text-align: center;
 }
 
@@ -83,17 +101,21 @@ main {
     color: #692a0d;
     text-shadow: 0 2px 0 #fff2d9;
     font-size: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 120px;
+    width: -50%;
 }
 
 .photo {
-    height: 120px;
-    width: 120px;
+    height: 400px;
+    width: 400px;
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
     display: block;
-    margin: 0 auto 16px;
+    margin-left: 0;
+    margin-right: 0;
+    align-self: flex-start;
+
 }
 
 
@@ -103,10 +125,10 @@ section {
 
 
 #technologie {
-    display: flex;
-
+    margin-left: auto;
     width: 50%;
     gap: 20px;
+    display: flex;
 }
 
 #technologie ul {
@@ -134,10 +156,9 @@ section {
 
 #softskill {
     display: flex;
-
-    flex-direction: column;
-
-    gap: 16px;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 32px;
 }
 
 #softskill ul {
@@ -145,17 +166,18 @@ section {
     padding-left: 1rem;
     margin: 0;
     text-align: left;
+
 }
+
 
 #softskill li {
     margin: 6px 0;
 }
 
 #softskill img {
-    width: 280px;
-    height: 200px;
-    border-radius: 8px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+    width: 200px;
+    height: 300px;
+
 }
 
 
