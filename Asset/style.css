@@ -1,3 +1,38 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Georgia", serif;
+    color: #2b1b0f;
+}
+
+body {
+    background-image: url('./image/textures/parcho.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+header {
+    background-image: url('./image/textures/dorure.png');
+    background-repeat: repeat;
+    background-position: center;
+    color: #fffaf0;
+    text-shadow: 0 0 10px rgba(255, 200, 100, .7);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .5);
+    position: relative;
+    z-index: 10;
+}
+
+header menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 18px 16px;
+}
+
 header menu button {
     color: white;
     border: none;
@@ -5,13 +40,12 @@ header menu button {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    transition: box-shadow .3s ease, transform .2s ease;
 }
-
 
 header menu button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(5, 182, 252, 0.8);
+    box-shadow: 0 0 15px rgba(5, 182, 252, .8);
 }
 
 header menu a[href="#apropos"] button {
@@ -32,126 +66,68 @@ header menu a[href="#technologie"] button {
 }
 
 
-
-
-header {
-    background-image: url('textures/header_stone.png');
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 32px 28px;
+    background-image: url('Asset/textures/parchment_magic.png');
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 200, 100, 0.7);
-}
-
-
-body {
-    background-image: url('textures/.png');
-    background-size: cover;
-    background-attachment: fixed;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    color: #fffaf0;
-}
-
-
-#apropos {
-    background-image: url('textures/.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
     position: relative;
+    z-index: 20;
+}
+
+main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: radial-gradient(circle at 70% 20%, rgba(255, 200, 100, .15), rgba(0, 0, 0, .55));
+    pointer-events: none;
 }
 
 
-#softskill {
-    background-image: url('textures/');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+.intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
-
-#technologie {
-    background-image: url('textures/');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-
-#realisation {
-    background-image: url('textures/.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: #1a1a1a;
-}
-
-
-footer {
-    background-image: url('textures/.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: #fff;
-}
-
-
-body menu {
+.intro h1 {
     margin: 0;
-    padding: 20px;
-    margin-left: 600px;
-
-}
-
-body menu button {
-    margin: 0;
-    padding: 5px;
-
+    color: #4b2b14;
+    text-shadow: 0 1px 0 #fff2d9;
+    font-size: 2rem;
+    line-height: 1.2;
 }
 
 .photo {
-
-    margin-left: 900px;
+    height: 140px;
+    width: auto;
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+    display: block;
 }
 
 
-
-body {
-    margin: 0;
-
-
+section {
+    margin: 28px 0;
 }
 
-body h1 {
-
-    position: relative;
-    left: 300px;
-    top: 200px;
-
-}
-
-header img {
-    margin-left: 150px;
-}
-
-
-main #apropos {
-
-    position: relative;
+#apropos {
     text-align: center;
-    bottom: 350px;
-    right: 300px;
 }
 
 
-main #technologie h2 {
+#technologie h2 {
     margin-left: 450px;
-
 }
+
 
 #html {
     margin-left: 800px;
@@ -165,12 +141,9 @@ main #technologie h2 {
     margin-left: 1200px;
 }
 
-
-
 #softskill li {
     position: relative;
     margin-left: 800px;
-
 }
 
 #softskill h2 {
@@ -180,5 +153,41 @@ main #technologie h2 {
 #softskill img {
     position: relative;
     margin-left: 150px;
+}
 
+
+footer {
+    background-image: url('Asset/textures/bronze_forge.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff8e6;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, .5);
+    position: relative;
+    z-index: 10;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+@media (max-width: 900px) {
+    .intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #technologie h2,
+    #html,
+    #css,
+    #github,
+    #softskill h2,
+    #softskill li,
+    #softskill img {
+        margin-left: 0;
+    }
 }
