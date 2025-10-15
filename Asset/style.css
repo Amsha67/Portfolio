@@ -6,6 +6,7 @@ body {
     color: #2b1b0f;
 }
 
+
 body {
     background-image: url('./image/textures/fond2.jpg');
     background-size: cover;
@@ -24,12 +25,12 @@ header {
     box-shadow: 0 5px 20px rgba(0, 0, 0, .5);
     position: relative;
     z-index: 10;
-
 }
 
 header menu {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin: 0;
     padding: 18px 16px;
@@ -47,8 +48,6 @@ header menu button {
     background-repeat: repeat;
     background-size: 150px;
     background-position: center;
-
-
     box-shadow: 0 2px 3px #000000, 0 8px 20px rgba(0, 0, 0, 0.25);
     border-bottom: 2px solid #000000;
     position: relative;
@@ -61,12 +60,11 @@ header menu button:hover {
 }
 
 
-
 main {
     max-width: 1100px;
     margin: 40px auto;
     padding: 32px 28px;
-    background-image: url('//Asset/image/textures/parcho.jpg');
+    background-image: url('./Asset/image/textures/parcho.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 12px;
@@ -75,39 +73,27 @@ main {
     z-index: 20;
 }
 
-main::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    background: radial-gradient(circle at 70% 20%, rgba(255, 200, 100, .15), rgba(0, 0, 0, .55));
-    pointer-events: none;
+
+#apropos {
+    text-align: center;
 }
 
+#apropos h1 {
 
-.intro {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 28px;
-}
-
-.intro h1 {
-    margin: 0;
-    color: #4b2b14;
-    text-shadow: 0 1px 0 #fff2d9;
+    color: #692a0d;
+    text-shadow: 0 2px 0 #fff2d9;
     font-size: 2rem;
-    line-height: 1.2;
+    margin-bottom: 10px;
 }
 
 .photo {
-    height: 140px;
-    width: auto;
+    height: 120px;
+    width: 120px;
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
     display: block;
+    margin: 0 auto 16px;
 }
 
 
@@ -115,40 +101,97 @@ section {
     margin: 28px 0;
 }
 
-#apropos {
-    text-align: center;
+
+#technologie {
+    display: flex;
+
+    width: 50%;
+    gap: 20px;
+}
+
+#technologie ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#technologie li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+#technologie img {
+    width: 50px;
+    height: 50px;
 }
 
 
-#technologie h2 {
-    margin-left: 450px;
+#softskill {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
 }
 
-
-#html {
-    margin-left: 800px;
-}
-
-#css {
-    margin-left: 1000px;
-}
-
-#github {
-    margin-left: 1200px;
+#softskill ul {
+    list-style: "•  ";
+    padding-left: 1rem;
+    margin: 0;
+    text-align: left;
 }
 
 #softskill li {
-    position: relative;
-    margin-left: 800px;
-}
-
-#softskill h2 {
-    margin-left: 800px;
+    margin: 6px 0;
 }
 
 #softskill img {
-    position: relative;
-    margin-left: 150px;
+    width: 280px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+}
+
+
+#realisation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#realisation .project {
+    background: rgba(255, 248, 230, 0.8);
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    padding: 16px 20px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+}
+
+#realisation h3 {
+    margin: 6px 0 8px 0;
+    color: #5a230c;
+}
+
+#realisation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+
+#parcours {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 
@@ -165,6 +208,11 @@ footer {
     z-index: 10;
 }
 
+footer img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
 
 html {
     scroll-behavior: smooth;
@@ -172,19 +220,23 @@ html {
 
 
 @media (max-width: 900px) {
-    .intro {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    main {
+        margin: 20px 10px;
+        padding: 22px 18px;
     }
 
-    #technologie h2,
-    #html,
-    #css,
-    #github,
-    #softskill h2,
-    #softskill li,
+    #technologie ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #softskill ul {
+        text-align: center;
+        padding-left: 0;
+    }
+
     #softskill img {
-        margin-left: 0;
+        width: 200px;
+        height: 150px;
     }
 }
