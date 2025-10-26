@@ -2,79 +2,184 @@
 <html lang="fr">
 
 <head>
-    <title>Schmoelzlin Eric portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <title>Schmoelzlin Eric — Portfolio</title>
+
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./Asset/style.css">
 </head>
 
 <body>
-    <header>
-        <menu>
-             <a href="#apropos"><button>A propos</button></a>
-             <a href="#softskill"><button>Soft skills</button></a>
-             <a href="#realisation"><button>Réalisations</button></a>
-             <a href="#technologie"><button>Technologies</button></a>
-        </menu>
-    </header>
+
+<div class="separateur--vitrail">
+  <span class="pointe gauche"></span>
+  <span class="pointe droite"></span>
+  <span class="rosace"></span>
+</div>
+  <header>
+    <menu>
+      <a href="#apropos"><button type="button">À propos</button></a>
+      <a href="#technologie"><button type="button">Technologies</button></a>
+      <a href="#softskill"><button type="button">Soft skills</button></a>
+      <a href="#realisation"><button type="button">Réalisations</button></a>
+      <a href="#parcours"><button type="button">Parcours</button></a>
+    </menu>
+  </header>
 
 
-    <main>
-        <h1>Portfolio
-            Schmoelzlin Eric</h1>
-        <img class="photo" src="Asset/icon.png" alt="carré noir">
-        <section id="apropos">
-            <h2>A propos</h2>
-            <p> Je m'appelle Schmoelzlin Eric, 29 ans, en réorientation professionnel, étudiant en BTS SIO option
-                SLAM.<br>
-                Passionné par le développement web, j'apprécie
-                particulièrement la partie CSS pour son aspect créatif et visuel.<br>
-                À l’aise avec les outils comme GitHub et
-                vscode, je m'oriente vers le métier de développeur front-end.<br>
-                Actuellement, je suis à la recherche d'une alternance pour<br>
-                approfondir mes compétences et évoluer dans un environnement professionnel.</p>
-        </section>
-        <section id="technologie">
-            <h2>Technologie</h2>
-            <ul>
-                <li id="html">HTML <img class="logo1" src="Asset/html.png" alt="html logo" widht="50" height="50"> </li>
-                <li id="css">CSS <img class="logo2" src="Asset/css.png" alt="css logo" widht="50" height="50"></li>
-                <li id="github">GITHUB <img class="logo3" src="Asset/git.png" alt="git logo" widht="50" height="50">
-                </li>
-            </ul>
-        </section>
-        <section id="softskill">
-            <h2>Soft Skills</h2>
-            <ul>
-                <li>Travailler sous pression/gestion du stress
-                <li>Créativité/Inovation</li>
-                <li>Empathie</li>
-                <li>Remise en question</li>
-            </ul>
-            <img src="asset/skills.jpg" alt="Image d'une roue de compétences" height="200" width="280">
+<main>
 
-        </section>
-        <section id="realisation">
-            <h2>Réalisations</h2>
-            <ul>
-                <h3><b> Developpement WEB</b></h3>
-                <li>Technos : HTML,CSS. </li>
-                <li> Objectif : Création d'un site web sur la demande du client.</li>
+<div class="separateur--simple"></div>
 
-            </ul>
-            <ul>
-                <h3> <b> Déploiement d’une machine virtuel</b></h3>
-                <li>Technos : Vmware. </li>
-                <li>Objectif : Faire tourner des VM pour tester des applications ou relever des failles de securité.
-                </li>
-            </ul>
-        </section>
+  <section id="apropos">
+    <div class="bloc-texte">
+      <h1>À propos</h1>
+      <p>Je m'appelle Éric Schmoelzlin, 29 ans,
+        étudiant en BTS SIO (Services Informatiques aux Organisations),
+        passionné par l’informatique.
+        J’ai toujours appris de manière autonome. 
+        Actuellement je recherche une alternance pour approfondir mes compétences techniques et participer à des projets concrets.</p>
 
-    </main>
-    <footer>
-        <h2>Contact :</h2>
-        <p><a href="https://www.linkedin.com/in/eric-schmoelzlin-824274220/">Linkedin</a><br>
-            <a href="https://github.com/Amsha67">Github</a>
-        </p>
-    </footer>
+      
+    </div>
+
+    <figure class="cadre-photo">
+  <img class="photo" src="Asset/image/icon.png" alt="photo qui représente eric schmoelzlin">
+  <div class="ornements"></div>
+  <div class="rosace"></div>
+  <figcaption> • Etudiant en Informatique • </figcaption>
+</figure>
+
+  </section>
+
+
+  <div class="separateur--vitrail">
+  <span class="pointe gauche"></span>
+  <span class="pointe droite"></span>
+  <span class="rosace"></span>
+</div>
+
+
+  <section id="technologie">
+    <ul class="bloc-icones">
+      <li>HTML <img src="Asset/image/html.png" alt="Logo HTML"></li>
+      <li>CSS <img src="Asset/image/css.png" alt="Logo CSS"></li>
+      <li>React <img src="Asset/image/react.png" alt="Logo React"></li>
+    <li>VmWare <img src="Asset/image/vmware.png" alt="Logo VmWare"></li>
+    </ul>
+    <div class="bloc-texte">
+      <h2>Technologies</h2>
+      <p>J’ai appris à utiliser divers langages et logiciel et je peut apprendre de nouvelles manières de travailler rapidement</p>
+    </div>
+  </section>
+
+  <div class="separateur--simple"></div>
+
+ 
+  <section id="softskill">
+    <div class="bloc-texte">
+      <h2>Soft Skills</h2>
+      <ul>
+        <li>Travailler sous pression / gestion du stress</li>
+        <li>Créativité / Innovation</li>
+        <li>Empathie</li>
+        <li>Remise en question</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="separateur--vitrail">
+  <span class="pointe gauche"></span>
+  <span class="pointe droite"></span>
+  <span class="rosace"></span>
+</div>
+
+  <section id="realisation">
+    <div class="bloc-texte">
+      <h2>Réalisations</h2>
+      <article class="project">
+        <h3>Refonte /Création de site web</h3>
+        <ul>
+          <li>Technos : HTML, CSS, React</li>
+          <li>Objectif : Créer ou moderniser un site existant en améliorant son design, son accessibilité et ses performances.</li>
+        </ul>
+      </article>
+
+<div class="separateur--simple"></div>
+
+      <article class="project">
+        <h3>Migration Windows 10 → Windows 11</h3>
+        <ul>
+          <li>Objectif : Planifier et exécuter la mise à niveau d’un parc informatique.</li>
+        </ul>
+</article>
+
+<article class="project">
+        <h3>Machine virtuelle</h3>
+        <ul>
+        <li>Technos : VmWare</li>
+          <li>Objectif : Faire tourner une machine virtuelle pour détecter des failles et tester des logiciels.</li>
+        </ul>
+</article>
+
+    </div>
+  </section>
+
+ <div class="separateur--simple"></div>
+
+  <section id="parcours">
+    <div class="bloc-texte">
+      <h2>Parcours</h2>
+      <p>Titulaire d’un Bac STI2D option SIN et d’une Licence en Arts Visuels à l’Université de Strasbourg,
+        j'ai décidé de me réorienter dans un metier qui me passionne en réalisant un BTS SIO pour me spécialiser en développement et administration système.<br>
+        Mon parcours professionnel dans la restauration et les services m’a permis d’acquérir des qualités essentielles :
+        rigueur, travail d’équipe, communication et gestion.</p>
+    </div>
+
+    
+
+  </section>
+
+  <div class="separateur--simple"></div>
+
+</main>
+
+
+<div class="separateur--vitrail">
+  <span class="pointe gauche"></span>
+  <span class="pointe droite"></span>
+  <span class="rosace"></span>
+</div>
+ 
+  <footer class="pied">
+  <div class="pied-contenu">
+    
+    <div class="contact-mail">
+      <h3>Me contacter</h3>
+      <a class="btn-rouge" href="mailto:eric.schmoelzlin@gmail.com" aria-label="Envoyer un mail">
+        <img src="Asset/image/Gmail.png" alt="icone d'une enveloppe gmail">
+        <span class="libelle">Gmail</span>
+      </a>
+    </div>
+
+    
+    <div class="liens-sociaux">
+      <h3>Réseaux</h3>
+      <a class="btn-rouge" href="https://www.linkedin.com/in/eric-schmoelzlin-824274220/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <img src="Asset/image/linkedin.png" alt="icone bleu de linkedin" width="22" height="22">
+        <span class="libelle">LinkedIn</span>
+      </a>
+      <a class="btn-rouge" href="https://github.com/Amsha67" target="_blank" rel="noopener" aria-label="GitHub">
+        <img src="Asset/image/git.png" alt="icon du chat noir de git" width="24" height="24">
+        <span class="libelle">GitHub</span>
+      </a>
+    </div>
+  </div>
+
+  <p class="credit">© 2025 — Eric Schmoelzlin</p>
+</footer>
+
+
 </body>
-
 </html>
