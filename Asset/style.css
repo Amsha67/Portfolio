@@ -45,6 +45,8 @@ body::before {
   content: "";
 }
 
+
+
 h1,
 h2,
 h3 {
@@ -53,6 +55,12 @@ h3 {
   margin: 0 0 .6em;
   color: #aa1f0d;
   text-shadow: 0 0 2px rgb(255, 48, 11), 1px 4px 2px rgba(204, 12, 12, .397);
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 p,
@@ -514,7 +522,8 @@ footer a:hover {
   }
 }
 
-section {
+section,
+div {
   opacity: 0;
   animation: fadeUpSoft .8s ease-out both
 }
