@@ -152,8 +152,9 @@ section:nth-of-type(even) {
 
 .cadre-photo {
   position: relative;
-  width: 2000px;
-  height: 560px;
+  max-width: 520px;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
   overflow: hidden;
   background: #1b191b;
@@ -260,6 +261,8 @@ section:nth-of-type(even) {
   margin: 0 auto;
 }
 
+
+
 #technologie p {
   color: #a99c8d;
   margin: 0 0 8px
@@ -305,6 +308,13 @@ section:nth-of-type(even) {
   display: inline-block;
 }
 
+
+#softskill {
+  display: flex;
+  justify-content: flex-end;
+
+}
+
 #softskill ul {
   list-style: "•  ";
   padding-left: 1rem;
@@ -316,9 +326,12 @@ section:nth-of-type(even) {
   color: #a99c8d
 }
 
+
+
+
 #realisation {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
   gap: 60px;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -335,7 +348,7 @@ section:nth-of-type(even) {
 }
 
 #realisation article {
-  background: #1b191b;
+  background: #1b1919;
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 12px;
   padding: 16px 18px;
@@ -347,11 +360,17 @@ section:nth-of-type(even) {
 #realisation article:hover {
   transform: translateY(-2px);
   border-color: rgba(224, 74, 46, .5);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, .48), 0 0 18px rgba(224, 74, 46, .2);
+  box-shadow: 0 8px 24px rgba(219, 9, 9, 0.425), 0 0 18px rgba(224, 74, 46, .2);
 }
 
 #realisation li {
   color: #a99c8d
+}
+
+
+#parcours {
+  display: flex;
+  justify-content: flex-end;
 }
 
 #parcours p {
@@ -590,7 +609,7 @@ section h3 {
   border: 1px solid rgba(255, 255, 255, .08);
   background: rgba(27, 25, 27, .55);
   backdrop-filter: blur(6px);
-  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease, .25s ease;
   box-shadow: 0 6px 16px rgba(0, 0, 0, .35), inset 0 1px 2px rgba(255, 255, 255, .04);
 }
 
