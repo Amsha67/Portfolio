@@ -132,139 +132,129 @@ section {
   position: relative;
 }
 
-section:nth-of-type(even) {
-  flex-direction: row-reverse;
+/* ANIMATION CADRE PHOTO AURA ROUGE */
+@keyframes cadreGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba(224, 74, 46, .25),
+      inset 0 0 8px rgba(224, 74, 46, .25),
+      0 0 22px rgba(224, 74, 46, .25);
+    border-color: rgba(224, 74, 46, .75);
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px rgba(224, 74, 46, .45),
+      inset 0 0 16px rgba(224, 74, 46, .35),
+      0 0 36px rgba(224, 74, 46, .45);
+    border-color: rgba(224, 74, 46, 1);
+  }
+
+  100% {
+    box-shadow:
+      0 0 10px rgba(224, 74, 46, .25),
+      inset 0 0 8px rgba(224, 74, 46, .25),
+      0 0 22px rgba(224, 74, 46, .25);
+    border-color: rgba(224, 74, 46, .75);
+  }
 }
 
-#apropos {
-  gap: 60px
-}
-
-#apropos p {
-  color: #efe6d8
-}
-
-#apropos ul {
-  margin: 12px 0 0 1rem
-}
-
-#apropos li {
-  margin: 6px 0;
-  color: #a99c8d
-}
-
+/* CADRE PHOTO */
+/*--------------*/
 .cadre-photo {
-  position: relative;
+  display: grid;
+  place-items: center;
   max-width: 520px;
   width: 100%;
-  height: auto;
-  margin: 0 auto;
-  overflow: hidden;
-  background: #1b191b;
-  border-radius: 260px 260px 14px 14px;
-  box-shadow: 0 0 22px rgba(224, 74, 46, .25), inset 0 0 12px rgba(224, 74, 46, .15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: cadreGlow 7s ease-in-out infinite;
+  background: transparent;
 }
 
+.cadre-photo>* {
+  grid-area: 1 / 1;
+  /* tout s'empile dans la même cellule */
+}
+
+/* La photo définit la forme et porte le cadre rouge */
 .cadre-photo .photo {
-  width: 110%;
-  height: 100%;
+  width: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
   display: block;
   border-radius: 260px 260px 14px 14px;
-  z-index: 1;
-  transform: scale(1.08);
-}
-
-.cadre-photo::before,
-.cadre-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 260px 260px 14px 14px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.cadre-photo::before {
   border: 2px solid rgba(224, 74, 46, .85);
-  box-shadow: 0 0 10px rgba(224, 74, 46, .35);
+  box-shadow:
+    0 0 10px rgba(224, 74, 46, .35),
+    inset 0 0 8px rgba(224, 74, 46, .25),
+    0 0 22px rgba(224, 74, 46, .25);
 }
 
-.cadre-photo::after {
-  inset: 6px;
-  border: 1.5px solid rgba(224, 74, 46, .55);
-  box-shadow: 0 0 8px rgba(224, 74, 46, .25);
-}
-
+/* Bandeaux gauche/droite, */
 .cadre-photo .ornements {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  place-self: center stretch;
+  padding: 0 10px;
   pointer-events: none;
 }
 
+/* before pour la gauche et after pour la droite */
 .cadre-photo .ornements::before,
 .cadre-photo .ornements::after {
   content: "";
-  position: absolute;
-  top: 50%;
   width: 22px;
   height: 10px;
   border-top: 2px solid rgba(224, 74, 46, .9);
   border-bottom: 2px solid rgba(224, 74, 46, .9);
-  transform: translateY(-50%) skewX(32deg);
-  filter: drop-shadow(0 0 6px rgba(224, 74, 46, .6));
+  filter: drop-shadow(0 0 3px rgba(224, 74, 46, .5));
 }
 
 .cadre-photo .ornements::before {
-  left: 10px
+  transform: skewX(32deg);
 }
 
 .cadre-photo .ornements::after {
-  right: 10px;
-  transform: translateY(-50%) skewX(-32deg)
+  transform: skewX(-32deg);
 }
 
+/* Rosace centrée en haut du cadre, appel d'un svg*/
 .cadre-photo .rosace {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  place-self: start center;
+  /* haut / centré */
+  margin-top: 10px;
   width: 26px;
   height: 26px;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><g fill='none' stroke='%23e04a2e' stroke-width='3'><circle cx='32' cy='32' r='10'/><path d='M32 4v16M32 44v16M4 32h16M44 32h16'/><path d='M14 14l12 12M38 38l12 12M14 50l12-12M38 26l12-12'/></g></svg>");
   background-repeat: no-repeat;
   background-position: center;
+  /* proportionne le svg dans le cadre */
   background-size: contain;
-  filter: drop-shadow(0 0 6px rgba(224, 74, 46, .6));
-  z-index: 4;
+  filter: drop-shadow(0 0 4px rgba(224, 74, 46, .4));
 }
 
+/* Légende centrée en bas du cadre*/
 .cadre-photo figcaption {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
+  place-self: end center;
+  /* bas / centré */
+  margin-bottom: 12px;
   text-align: center;
   color: #a99c8d;
   font-size: .9rem;
   line-height: 1.3;
-  z-index: 5;
   background: rgba(20, 15, 15, .35);
   border: 1px solid rgba(224, 74, 46, .25);
   border-radius: 8px;
   padding: 6px 10px;
   backdrop-filter: blur(3px);
   width: fit-content;
-  margin: 0 auto;
 }
 
+/*--------------*/
+/* SECTIONS*/
+/*--------------*/
 
+/* TECHNOLOGIES */
 
 #technologie p {
   color: #a99c8d;
@@ -291,7 +281,7 @@ section:nth-of-type(even) {
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 12px;
   padding: 8px 12px;
-  transition: transform .15s ease, box-shadow .25s ease, border-color .25s ease;
+
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, .05), 0 6px 16px rgba(0, 0, 0, .35);
 }
 
@@ -302,15 +292,16 @@ section:nth-of-type(even) {
 }
 
 #technologie li img {
-  width: 40px !important;
-  height: 40px !important;
-  max-width: 40px !important;
-  max-height: 40px !important;
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
   object-fit: contain;
   flex-shrink: 0;
   display: inline-block;
 }
 
+/* SOFT SKILLS */
 
 #softskill {
   display: flex;
@@ -331,6 +322,7 @@ section:nth-of-type(even) {
 
 
 
+/* REALISATIONS */
 
 #realisation {
   display: flex;
@@ -340,6 +332,7 @@ section:nth-of-type(even) {
   flex-wrap: wrap;
 }
 
+/* permet aux blocs de s'adapter selon le remplissage des autres éléments */
 #realisation>.bloc-texte {
   flex: 1 1 50%;
   min-width: 300px
@@ -350,6 +343,7 @@ section:nth-of-type(even) {
   min-width: 300px
 }
 
+/* Articles ( blocs ) */
 #realisation article {
   background: #1b1919;
   border: 1px solid rgba(255, 255, 255, .08);
@@ -370,6 +364,7 @@ section:nth-of-type(even) {
   color: #a99c8d
 }
 
+/* PARCOURS */
 
 #parcours {
   display: flex;
@@ -379,6 +374,9 @@ section:nth-of-type(even) {
 #parcours p {
   color: #a99c8d
 }
+
+
+/* SEPARATEURS */
 
 .separateur--simple {
   position: relative;
@@ -451,6 +449,7 @@ section:nth-of-type(even) {
   filter: drop-shadow(0 0 6px rgba(224, 74, 46, .6));
 }
 
+/* BAS DE PAGE */
 footer {
   background: #1b191b;
   color: #efe6d8;
@@ -571,7 +570,8 @@ section h3 {
 
 .pied h3 {
   margin: 0 0 10px;
-  font-family: "Cinzel", Georgia, serif;
+  font-family: "Cinzel";
+  
   color: #aa1f0d;
   text-shadow: 0 0 2px rgba(255, 48, 11, .9), 0 0 8px rgba(204, 12, 12, .35);
   font-size: 1.05rem;
@@ -616,7 +616,7 @@ section h3 {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: philosopher;
   color: #ffe8e3;
   text-shadow: 0 0 6px rgba(224, 74, 46, .45);
 }
