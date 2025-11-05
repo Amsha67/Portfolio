@@ -1,6 +1,6 @@
 /* Rend le scroll fluide apres clic sur la barre des sections */
 html {
-
+scroll-padding-top: 120px;
   scroll-behavior: smooth
 }
 
@@ -130,7 +130,9 @@ section {
   justify-content: space-between;
   gap: 60px;
   position: relative;
+
 }
+
 
 /* ANIMATION CADRE PHOTO AURA ROUGE */
 @keyframes cadreGlow {
@@ -281,8 +283,9 @@ section {
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 12px;
   padding: 8px 12px;
-
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, .05), 0 6px 16px rgba(0, 0, 0, .35);
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; /* ✅ AJOUT */
 }
 
 #technologie li:hover {
@@ -290,6 +293,18 @@ section {
   border-color: rgba(224, 74, 46, .5);
   box-shadow: 0 12px 28px rgba(0, 0, 0, .45), 0 0 14px rgba(224, 74, 46, .22);
 }
+
+
+#technologie li a {
+  display: flex;          
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;  /* enlève l’aspect lien */
+  color: inherit;         /* garde la couleur */
+  width: 100%;
+  height: 100%;
+}
+
 
 #technologie li img {
   width: 40px;
@@ -299,7 +314,14 @@ section {
   object-fit: contain;
   flex-shrink: 0;
   display: inline-block;
+  
 }
+
+#technologie li:hover img {
+  transform: scale(1.14) rotate(-3deg);
+}
+
+
 
 /* SOFT SKILLS */
 
@@ -326,33 +348,78 @@ section {
 
 #realisation {
   display: flex;
-  justify-content: flex-end;
-  gap: 60px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
+  flex-direction: column;
+  gap: 16px; 
+ }
 
-/* permet aux blocs de s'adapter selon le remplissage des autres éléments */
-#realisation>.bloc-texte {
-  flex: 1 1 50%;
-  min-width: 300px
-}
 
-#realisation>.bloc-media {
-  flex: 1 1 50%;
-  min-width: 300px
-}
 
 /* Articles ( blocs ) */
 #realisation article {
+    margin: 0 ;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr minmax(160px, 240px);
+  align-items: center;
+  gap: 24px;  
   background: #1b1919;
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 12px;
   padding: 16px 18px;
   margin: 14px 0;
-  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+  transition: box-shadow .6s ease, border-color .6s ease, transform .4s ease;
+  scroll-margin-top: 200px;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, .05), 0 10px 28px rgba(0, 0, 0, .4);
+  position: relative; 
 }
+
+#realisation article h3 {
+  margin: 0;                  
+}
+
+#realisation article ul {
+  margin: 0;                  
+  padding-left: 1.2rem;       /* puces lisibles sans déborder */
+}
+
+
+/* Image à droite, taille contrôlée */
+#realisation article img {
+  grid-column: 3;
+  justify-self: end;
+  width: 100%;
+  max-width: 220px;           
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;        
+}
+
+
+/* Effet lorsqu'un article est ciblé */
+#realisation article:target::after {
+  content: ""; /* guillement vide dans les before et after pour que l'élément existe en tant que calque sans texte */
+  position: absolute;
+  inset: 0;
+  border-radius: inherit; /* inherit reprend le border radius du parent */
+  pointer-events: none;
+  animation: highlightSoft 3.2s ease-out; /* durée de l'animation */
+}
+
+/* Animation fluide & courte */
+@keyframes highlightSoft {
+  0% {
+    box-shadow: 0 0 22px rgba(224, 74, 46, .65), 0 0 12px rgba(255, 255, 255, 0.4) inset;
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(224, 74, 46, .45), 0 0 8px rgba(224, 74, 46, .25) inset;
+  }
+  100% {
+    box-shadow: none;
+    opacity: 0;
+  }
+}
+
+
 
 #realisation article:hover {
   transform: translateY(-2px);
@@ -515,12 +582,6 @@ section:nth-of-type(5) {
   animation-delay: .4s
 }
 
-#technologie li,
-#realisation article {
-  opacity: 0;
-  animation: fadeUpSoft .7s ease-out both;
-  animation-delay: .5s;
-}
 
 @keyframes titleGlowSoft {
 
@@ -540,7 +601,7 @@ section h3 {
   animation: titleGlowSoft 1.6s ease-in-out both
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {   /* les @media permettent d'ajuster sur petit ecran */
 
   *,
   *::before,
@@ -584,7 +645,7 @@ section h3 {
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: 10px;
   text-decoration: none;
   color: #efe6d8;
   border: 1px solid rgba(255, 255, 255, .08);
@@ -628,7 +689,8 @@ section h3 {
 .contact-mail,
 .liens-sociaux {
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
+  text-align: center;
   gap: 12px
 }
 
