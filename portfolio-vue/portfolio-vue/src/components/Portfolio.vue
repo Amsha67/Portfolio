@@ -1163,7 +1163,7 @@ section h3 {
     font-size: 0.85rem;
     padding: 4px 8px;
   }
-}
+
 
 /* Section technologies : colonne centrée */
 #technologie {
@@ -1254,5 +1254,5 @@ section h3 {
   align-items: stretch;
   gap: 22px;
 }
-
+}
 </style>
