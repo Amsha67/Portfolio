@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Schmoelzlin Eric — Portfolio</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cinzel:wght@600;700;800&display=swap"
@@ -20,7 +21,26 @@
     </div>
     <header>
 
-    
+        <!-- ===== MENU BURGER (affiché seulement sur mobile) ===== -->
+        <div class="menuburger">
+            <!-- Checkbox qui sert de déclencheur -->
+            <input type="checkbox" id="hamburger">
+
+            <!-- Bouton burger -->
+            <label id="hamburger-logo" for="hamburger">☰</label>
+
+            <!-- Navigation du menu -->
+            <nav class="menu-mobile">
+                <a href="#apropos">À propos</a>
+                <a href="#technologie">Technologies</a>
+                <a href="#softskill">Soft skills</a>
+                <a href="#realisation">Réalisations</a>
+                <a href="#parcours">Parcours</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+
+
         <menu>
             <a href="#apropos"><button type="button">À propos</button></a>
             <a href="#technologie"><button type="button">Technologies</button></a>
@@ -49,7 +69,7 @@
             <span class="pointe droite"></span>
             <span class="rosace"></span>
         </div>
-
+        <!-- Span est un élément en ligne utilisé pour appliquer des styles ou des classes ( comme div) -->
 
         <section id="apropos">
             <div class="bloc-texte">
@@ -59,7 +79,8 @@
 
                     Après plusieurs expériences dans d’autres domaines, j’ai décidé de revenir à ce que j'aime vraiment
                     :
-                    le code, les systèmes, et la résolution de problèmes techniques. Je ne lache pas tant que je n'ai pas compris/réussis a résoudre un problème.
+                    le code, les systèmes, et la résolution de problèmes techniques. Je ne lache pas tant que je n'ai
+                    pas compris/réussis a résoudre un problème.
                     Aujourd’hui, je poursuis un BTS SIO et recherche une alternance qui me permettra de contribuer à des
                     projets concrets,
                     et de consolider mes compétences
@@ -83,17 +104,18 @@
 
         <section id="technologie">
             <ul class="bloc-icones">
-                 <li><a href="#code">HTML <img src="Asset/image/html.png" alt="Logo HTML"></a></li>
-                 <li><a href="#code">CSS <img src="Asset/image/css.png" alt="Logo CSS"></a></li>
-                 <li><a href="#code">React <img src="Asset/image/react.png" alt="Logo React"></a></li>
-                 <li><a href="#code">Vue.JS <img src="Asset/image/vuejs.png" alt="Logo Vue.JS"></a></li>
-                 <li><a href="#vmware">VmWare <img src="Asset/image/vmware.png" alt="Logo VmWare"></a></li>
-                 <li><a href="#windows">Windows<img src="Asset/image/windows.png" alt="Logo Windows"></a></li>
-                 <li><a href="#reseau">Linux<img src="Asset/image/linux.png" alt="Logo Linux"></a></li>
+                <li><a href="#code">HTML <img src="Asset/image/html.png" alt="Logo HTML"></a></li>
+                <li><a href="#code">CSS <img src="Asset/image/css.png" alt="Logo CSS"></a></li>
+                <li><a href="#code">React <img src="Asset/image/react.png" alt="Logo React"></a></li>
+                <li><a href="#code">Vue.JS <img src="Asset/image/vuejs.png" alt="Logo Vue.JS"></a></li>
+                <li><a href="#vmware">VmWare <img src="Asset/image/vmware.png" alt="Logo VmWare"></a></li>
+                <li><a href="#windows">Windows<img src="Asset/image/windows.png" alt="Logo Windows"></a></li>
+                <li><a href="#reseau">Linux<img src="Asset/image/linux.png" alt="Logo Linux"></a></li>
             </ul>
             <div class="bloc-texte">
                 <h2>Technologies</h2>
-                <p>J’ai appris à utiliser divers langages et logiciel et je suis capable d'assimiler de nouvelles manières de travailler rapidement</p>
+                <p>J’ai appris à utiliser divers langages et logiciel et je suis capable d'assimiler de nouvelles
+                    manières de travailler rapidement</p>
             </div>
         </section>
 
@@ -101,7 +123,7 @@
 
 
         <section id="softskill">
-            <div class="bloc-texte">  
+            <div class="bloc-texte">
                 <h2>Soft Skills</h2>
                 <ul>
                     <li>Travailler sous pression / gestion du stress</li>
@@ -122,56 +144,56 @@
             <div class="bloc-texte">
                 <h2>Réalisations/ Mise en pratique</h2>
 
-                        <article id="code" >
-                        <h3>Refonte /Création de site web</h3>
-                        <ul>
-                            <li>Technos : HTML, CSS, REACT, VUE.JS</li>
-                            <li>Objectif : Créer ou moderniser un site existant en améliorant son design, son
-                                accessibilité et ses performances.</li>
-                        </ul>
-                        <img src="Asset/image/code3.png" alt="des lignes de codes écrites">
-                    </article>
+                <article id="code">
+                    <h3>Refonte /Création de site web</h3>
+                    <ul>
+                        <li>Technos : HTML, CSS, REACT, VUE.JS</li>
+                        <li>Objectif : Créer ou moderniser un site existant en améliorant son design, son
+                            accessibilité et ses performances.</li>
+                    </ul>
+                    <img src="Asset/image/code3.png" alt="des lignes de codes écrites">
+                </article>
 
-                    <article id="windows" >
-                        <h3>Migration Windows 10 → Windows 11</h3>
-                        <ul>
-                            <li>Technos : Windows 10, Windows 11</li>
-                            <li>Objectif : Planifier et exécuter la mise à niveau d’un parc informatique.</li>
-                        </ul>
-                        <img src="Asset/image/windows.png" alt="Logo windows">
-                    </article>
+                <article id="windows">
+                    <h3>Migration Windows 10 → Windows 11</h3>
+                    <ul>
+                        <li>Technos : Windows 10, Windows 11</li>
+                        <li>Objectif : Planifier et exécuter la mise à niveau d’un parc informatique.</li>
+                    </ul>
+                    <img src="Asset/image/windows.png" alt="Logo windows">
+                </article>
 
-                    <article id="reseau" >
-                        <h3>Administration système et réseaux</h3>
-                        <ul>
-                            <li>Configuration réseau : adressage IP, service de base</li>
-                            <li>Maintenance des systèmes</li>
-                            <li>Installation de système Windows/Linux</li>
-                        </ul>
-                        <img src="Asset/image/sys.jpg" alt="image qui représente un doigt qui clique sur des applications">
-                    </article>
+                <article id="reseau">
+                    <h3>Administration système et réseaux</h3>
+                    <ul>
+                        <li>Configuration réseau : adressage IP, service de base</li>
+                        <li>Maintenance des systèmes</li>
+                        <li>Installation de système Windows/Linux</li>
+                    </ul>
+                    <img src="Asset/image/sys.jpg" alt="image qui représente un doigt qui clique sur des applications">
+                </article>
 
-                    <article id="vmware">
-                        <h3>Machine virtuelle</h3>
-                        <ul>
-                            <li>Technos : VmWare</li>
-                            <li>Objectif : Faire tourner une machine virtuelle pour détecter des failles et tester des
-                                logiciels.</li>
-                        </ul>
-                        <img src="Asset/image/oracle.png" alt="icone machine virtuel">
-                    </article>
+                <article id="vmware">
+                    <h3>Machine virtuelle</h3>
+                    <ul>
+                        <li>Technos : VmWare</li>
+                        <li>Objectif : Faire tourner une machine virtuelle pour détecter des failles et tester des
+                            logiciels.</li>
+                    </ul>
+                    <img src="Asset/image/oracle.png" alt="icone machine virtuel">
+                </article>
 
-                    <article id="rgpd">
-                        <h3>Support/Assistance Informatique</h3>
-                        <ul>
-                            
-                            <li>Diagnostic et résolution de pannes matérielles et logicielles</li>
-                            <li>Installation et configuration de postes de travail/ Accompagnement des utilisateurs</li>
-                            <li>Veille au bonnes pratiques RGPD</li>
-                            
-                        </ul>
-                        <img src="Asset/image/rgpd.png" alt="un bouclier avec un cadena représente la rgpd">
-                    </article>
+                <article id="rgpd">
+                    <h3>Support/Assistance Informatique</h3>
+                    <ul>
+
+                        <li>Diagnostic et résolution de pannes matérielles et logicielles</li>
+                        <li>Installation et configuration de postes de travail/ Accompagnement des utilisateurs</li>
+                        <li>Veille au bonnes pratiques RGPD</li>
+
+                    </ul>
+                    <img src="Asset/image/rgpd.png" alt="un bouclier avec un cadena représente la rgpd">
+                </article>
             </div>
 
         </section>
