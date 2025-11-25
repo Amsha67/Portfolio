@@ -610,7 +610,6 @@ section h3 {
 }
 
 
-
 .pied {
   background: #1b191b;
   color: #efe6d8;
@@ -814,7 +813,6 @@ section h3 {
     transition: opacity .22s ease, transform .22s ease;
     z-index: 999;
   }
-
 
   .menuburger nav a {
     text-decoration: none;
