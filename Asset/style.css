@@ -717,16 +717,6 @@ section h3 {
 /*=============================*/
 /*=============================*/
 
-@media (prefers-reduced-motion: reduce) {
-  /* les @media permettent d'ajuster sur petit ecran */
-
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important
-  }
-}
 
 @media (max-width: 900px) {
 
@@ -748,25 +738,39 @@ section h3 {
 
   /* cache le menu desktop */
   header menu {
-    display: none !important;
+    display: none ;
   }
 
   /* checkbox cachée */
-  .menuburger #hamburger {
+   #hamburger {
     display: none;
   }
 
-  /* bouton burger (style cohérent, sans flou) */
-  #hamburger-logo {
-    display: inline-flex;
+  /* AFFICHER le menu burger sur mobile */
+  .menuburger {
+    display: flex;         
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    z-index: 1000;
+  }
+
+
+  /* bouton burger */
+
+  #hamburger-logo {
+    display: inline-flex; /* Met les 3 barres au centre du bouton */
+    align-items: center;  /* Met les 3 barres au centre du bouton */
+    justify-content: center;  /* Met les 3 barres au centre du bouton */
     width: 44px;
     height: 44px;
     font-size: 24px;
-    line-height: 1;
     color: #efe6d8;
-    background: rgba(27, 25, 27, .75); /* pas de backdrop-filter (effet de flou) */
+    background: rgba(27, 25, 27, .75);
     border: 1px solid rgba(224, 74, 46, .3);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(224, 74, 46, .25);
@@ -784,33 +788,34 @@ section h3 {
     perspective: none;
   }
 
-  .menuburger nav {
-    position: fixed;
-    top: 60px;
-    left: 12px;
-    right: 12px;
-    width: auto;
-    box-sizing: border-box;
+.menuburger nav {
+  position: fixed;
+  top: 60px;
+  left: 12px;
+  right: 12px;
+  box-sizing: border-box;
 
-    display: flex !important;
-    flex-direction: column;
-    gap: 10px;
-    padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     
+  text-align: center;      
+  gap: 10px;
+  padding: 12px 14px;
+  
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
+  background: rgba(27, 25, 27, .92);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
 
-    background: rgba(27, 25, 27, .92);
-    border: 1px solid rgba(255, 255, 255, .08);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
-
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-    transition: opacity .22s ease, transform .22s ease;
-    z-index: 999;
-  }
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 999; /* assure que le menu s'affiche tjr devant le reste */
+}
 
   .menuburger nav a {
     text-decoration: none;
