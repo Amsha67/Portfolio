@@ -4,10 +4,8 @@ html {
   scroll-behavior: smooth
 }
 
-
-
-/* checkbox cachée */
-  .menuburger #hamburger {
+/* Menu burger caché en desktop */
+  .menuburger {
     display: none;
   }
 
