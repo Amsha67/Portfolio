@@ -3,10 +3,10 @@ import { RouterLink } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
 
 const links = [
-  { label: 'À propos', href: '/#presentation' },
-  { label: 'Projets', href: '/#projets' },
-  { label: 'Parcours', href: '/#parcours' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'À propos',    href: '/#presentation' },
+  { label: 'Projets',     href: '/projets' },
+  { label: 'Compétences', href: '/competences' },
+  { label: 'Contact',     href: '/#contact' },
 ]
 </script>
 
