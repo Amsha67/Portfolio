@@ -1,0 +1,62 @@
+// Données centralisées de tous les projets du portfolio.
+// Tu reviens modifier ce fichier à chaque ajout/modification d'un projet.
+
+export const projects = [
+    {
+        num: '01',
+        category: 'Stage',
+        title: 'Nerleuro',
+        date: 'Mai → Juillet 2026',
+        shortDescription: "Application interne de scoring et suivi pour une structure d'accompagnement de personnes neuroatypiques. Envoi automatisé des bilans par e-mail, front et back end.",
+        stack: ['PHP', 'MySQL', 'PHPMailer', 'JavaScript'],
+        slug: 'nerleuro',
+        featured: true,
+    },
+    {
+        num: '02',
+        category: 'Projet Client',
+        title: 'Clean & CO',
+        date: '2026',
+        shortDescription: "Mission complète pour une entreprise de ménage à Strasbourg : cahier des charges, devis, planning Gantt, identité visuelle, développement WordPress.",
+        stack: ['WordPress', 'Astra', 'Elementor', 'CSS'],
+        slug: 'clean-co',
+        featured: true,
+    },
+    {
+        num: '03',
+        category: 'Activité Pro 2',
+        title: 'Parcus',
+        date: 'Janvier → Juillet 2026',
+        shortDescription: "Infrastructure réseau d'une DSI sur machines virtuelles : configuration multi-VM, ticketing GLPI, sécurisation et procédures support.",
+        stack: ['VirtualBox', 'Active Directory', 'GLPI', 'Réseau'],
+        slug: 'parcus',
+        featured: true,
+    },
+    {
+        num: '04',
+        category: 'Méta',
+        title: 'Portfolio',
+        date: '2025 - 2026',
+        shortDescription: "Le site que vous visitez. Construit en Vue.js + Vite, hébergé sur Vercel. Avec pour envie de rendre le vissionage agréable.",
+        stack: ['Vue.js', 'Vite', 'JavaScript', 'CSS'],
+        slug: 'portfolio',
+    },
+    {
+        num: '05',
+        category: 'Cours',
+        title: 'ToDo App',
+        date: 'Septembre → Octobre 2025',
+        shortDescription: "Application de gestion de tâches : CRUD intégral, requêtes préparées PDO, échappement htmlspecialchars, validation côté client.",
+        stack: ['PHP', 'PDO', 'MySQL', 'JavaScript'],
+        slug: 'todo-app',
+    },
+    {
+        num: '06',
+        category: 'Cours',
+        title: 'TP Collection',
+        date: 'Novembre → Décembre 2025',
+        shortDescription: "Modélisation à 4 tables liées, requêtes JOIN et LEFT JOIN, architecture modulaire avec require pour les éléments mutualisés.",
+        stack: ['PHP', 'MySQL', 'JOIN', 'PDO'],
+        slug: 'tp-collection',
+    },
+]

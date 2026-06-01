@@ -1,12 +1,177 @@
-<template>
-  <div>
-    </div>
-</template>
-
 <script setup>
-// Ta logique JavaScript/TypeScript ira ici
+// Stats affichées sous la tagline
+const stats = [
+  { value: '1',  label: 'année BTS SIO' },
+  { value: '6',  label: 'projets référencés' },
+  { value: '4+', label: 'technologies' },
+]
 </script>
 
+<template>
+  <section class="hero" id="presentation">
+    <div class="hero-inner">
+
+      <div class="hero-content">
+        <p class="hero-eyebrow">Portfolio 2025 — 2026</p>
+
+        <h1 class="hero-title">
+          Eric <em>Schmoezlin</em>
+        </h1>
+
+        <p class="hero-tagline">
+          Étudiant en BTS SIO option SLAM, première année à Strasbourg.
+          Développeur en formation, passionné par l'informatique et les nouvelles technologies.
+        </p>
+
+        <ul class="hero-stats">
+          <li v-for="stat in stats" :key="stat.label" class="stat">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero-photo">
+        <div class="hero-photo-placeholder">
+          <span>Portrait</span>
+        </div>
+        
+        <!-- <img src="/images/portrait.jpg" alt="Portrait d'Eric Schmoezlin" /> -->
+      </div>
+
+    </div>
+  </section>
+</template>
+
 <style scoped>
-/* Tes styles CSS iront ici */
+.hero {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+  padding: 4rem 2.5rem;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+  transition: color 0.5s ease;
+}
+
+.hero-title {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.75rem;
+  color: var(--text);
+  transition: color 0.5s ease;
+}
+
+.hero-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  transition: color 0.5s ease;
+}
+
+.hero-tagline {
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--text-soft);
+  margin: 0 0 3rem;
+  max-width: 540px;
+  transition: color 0.5s ease;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.45rem;
+  transition: color 0.5s ease;
+}
+
+.stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  transition: color 0.5s ease;
+}
+
+/* Photo */
+.hero-photo {
+  aspect-ratio: 4 / 5;
+  max-width: 380px;
+  margin: 0 auto;
+  background: var(--bg-elevated);
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      color-mix(in srgb, var(--text) 4%, transparent) 12px,
+      color-mix(in srgb, var(--text) 4%, transparent) 13px
+    );
+  transition: color 0.5s ease;
+}
+
+@media (max-width: 1024px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .hero-photo { max-width: 300px; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 3rem 1.25rem; }
+  .hero-stats { flex-direction: column; gap: 1.5rem; }
+}
 </style>
