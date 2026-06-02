@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { getProjectBySlug } from '../data/projects'
+import ProjectGallery from '../components/ProjectGallery.vue'
+import ProjectDocuments from '../components/ProjectDocuments.vue'
+import ProjectCodeBlock from '../components/ProjectCodeBlock.vue'
 
 const route = useRoute()
 const project = computed(() => getProjectBySlug(route.params.slug))
@@ -86,24 +89,49 @@ const project = computed(() => getProjectBySlug(route.params.slug))
         <p class="section-content">{{ section.content }}</p>
       </div>
     </section>
+<!-- Galerie d'images -->
+<section v-if="project.images && project.images.length" class="detail-section">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">{{ String(project.sections.length + 1).padStart(2, '0') }}</span>
+      Captures
+    </h2>
+    <p class="section-content">Galerie de captures de l'application.</p>
+    <ProjectGallery :images="project.images" />
+  </div>
+</section>
 
-    <!-- Documents -->
-    <section v-if="project.documents && project.documents.length" class="detail-section detail-documents">
-      <div class="section-inner">
-        <h2 class="section-title">
-          <span class="section-num">{{ String(project.sections.length + 1).padStart(2, '0') }}</span>
-          Documents
-        </h2>
-        <ul class="documents-list">
-          <li v-for="doc in project.documents" :key="doc.file">
-            <a :href="doc.file" target="_blank" rel="noopener">
-              {{ doc.label }}
-              <span class="arrow">↗</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
+<!-- Documents (remplace l'ancien bloc <section v-if="project.documents...) -->
+<section v-if="project.documents && project.documents.length" class="detail-section">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">{{ String(project.sections.length + (project.images?.length ? 2 : 1)).padStart(2, '0') }}</span>
+      Documents
+    </h2>
+    <p class="section-content">Documents officiels et livrables du projet.</p>
+    <ProjectDocuments :documents="project.documents" />
+  </div>
+</section>
+
+<!-- Blocs de code -->
+<section v-if="project.codeBlocks && project.codeBlocks.length" class="detail-section">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">{{ String(project.sections.length + (project.images?.length ? 2 : 1) + (project.documents?.length ? 1 : 0)).padStart(2, '0') }}</span>
+      Extraits de code
+    </h2>
+    <p class="section-content">Choix techniques significatifs.</p>
+    <ProjectCodeBlock
+      v-for="(block, i) in project.codeBlocks"
+      :key="i"
+      :title="block.title"
+      :description="block.description"
+      :language="block.language"
+      :code="block.code"
+    />
+  </div>
+</section>
+    
 
     <!-- Compétences validées -->
     <section v-if="project.competences && project.competences.length" class="detail-section detail-competences">

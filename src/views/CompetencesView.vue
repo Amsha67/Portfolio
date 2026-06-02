@@ -41,15 +41,15 @@ const toggleCompetence = (comp) => {
       <div class="stats-bar">
         <div class="stat">
           <span class="stat-value">{{ stats.validatedCompetences }}/{{ stats.totalCompetences }}</span>
-          <span class="stat-label">compétences validées</span>
+          <span class="stat-label">Compétences</span>
         </div>
         <div class="stat">
           <span class="stat-value">{{ stats.coverage }}%</span>
-          <span class="stat-label">de couverture</span>
+          <span class="stat-label">Validé</span>
         </div>
         <div class="stat">
           <span class="stat-value">{{ projects.length }}</span>
-          <span class="stat-label">projets référencés</span>
+          <span class="stat-label">Projets référencés</span>
         </div>
       </div>
 

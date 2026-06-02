@@ -7,14 +7,14 @@ export const projects = [
     {
         num: '01',
         category: 'Stage',
-        title: 'Nerleuro',
-        subtitle: 'Application interne de suivi',
-        date: 'Mai → Juin 2026',
+        title: 'Lerneuro',
+        subtitle: 'Application de test neuroatypique',
+        date: 'Mai → Juillet 2026',
         duration: '6 semaines',
         location: 'Strasbourg',
-        role: 'Développeur stagiaire — solo',
+        role: 'Développeur stagiaire',
         shortDescription: "Application interne de scoring et suivi pour une structure d'accompagnement de personnes neuroatypiques. Envoi automatisé des bilans par e-mail.",
-        longDescription: "Mission de stage de première année de BTS SIO. J'ai conçu et développé une application interne pour Nerleuro, structure d'accompagnement de personnes neuroatypiques. L'application permet aux praticiens de réaliser des bilans standardisés (questionnaires ASRS, AQ-10, MEWS, AUDIT, CAST, SAS-SV), de calculer automatiquement des scores selon les barèmes officiels, et d'envoyer les rapports par e-mail aux bénéficiaires. Toutes les données sont persistées localement par exigence de confidentialité, sans aucun service cloud.",
+        longDescription: "Mission de stage de première année de BTS SIO. J'ai conçu et développé une application interne pour Nerleuro, structure d'accompagnement de personnes neuroatypiques. L'application permet aux praticiens d'être mis en avant, et que les patients puissent passez des tests gratuitement (questionnaires ASRS, AQ-10, MEWS, AUDIT, CAST, SAS-SV). Scoring qui calcule automatiquement des scores selon les barèmes officiels, ce qui accélère le travail du praticien. La suite sera de mettre en place une base de données avec Laravel.",
         stack: ['Vue 3', 'TypeScript', 'Pinia', 'Vue Router', 'Vite'],
         slug: 'nerleuro',
         featured: true,
@@ -23,8 +23,18 @@ export const projects = [
         sections: [
             {
                 title: 'Contexte',
-                content: "Nerleuro accompagne des personnes neuroatypiques (TDAH, TSA, troubles anxieux, addictions). Les praticiens utilisent quotidiennement plusieurs questionnaires validés scientifiquement pour évaluer leurs bénéficiaires. Avant ce projet, les bilans étaient remplis manuellement sur papier puis ressaisis dans des feuilles Excel, avec un risque d'erreur et une perte de temps importante.",
+                content: "Nerleuro accompagne des personnes neuroatypiques (TDAH, TSA, troubles anxieux, addictions). Les praticiens utilisent quotidiennement plusieurs questionnaires validés scientifiquement pour évaluer leurs bénéficiaires. Avant ce projet, les bilans étaient remplis manuellement sur papier puis consulté par les psychologues ce qui prend un temps considérable.",
+                // ICI LES IMAGES
+
+                images: [
+                    { src: '/projets/nerleuro/images/01-accueil.png', alt: "Page d'accueil de l'application", caption: "Tableau de bord praticien" },
+                    { src: '/projets/nerleuro/images/02-questionnaire.png', alt: "Passation d'un questionnaire ASRS", caption: "Questionnaire ASRS en cours" },
+                    { src: '/projets/nerleuro/images/03-scoring.png', alt: "Résultat du scoring", caption: "Affichage du score et interprétation" },
+
+                ],
+
             },
+
             {
                 title: 'Mission',
                 content: "Concevoir une application web interne qui automatise la passation des questionnaires, calcule les scores selon les barèmes officiels, génère des rapports lisibles, et envoie les bilans par e-mail aux bénéficiaires. L'ensemble devait fonctionner en local pour respecter la confidentialité des données médicales.",
@@ -38,16 +48,29 @@ export const projects = [
                 content: "Le front-end est quasi complet. Les retours utilisateurs des psychologues professionnels ont permis d'améliorer l'ergonomie de l'interface. La prochaine étape est l'implémentation de la base de données et de l'API en Laravel, avec mise en place des tests automatisés.",
             },
         ],
+
+        // CODE A REMPLIR
+
+        codeBlocks: [
+            {
+                title: 'Algorithme de scoring ASRS',
+                description: "Calcul automatique du score selon le barème officiel du questionnaire ASRS",
+                language: 'typescript',
+                code: `// CODE A REMPLIR`
+            },
+            {
+                title: 'Envoi automatisé du bilan',
+                description: "Génération et envoi du rapport au bénéficiaire via PHPMailer",
+                language: 'php',
+                code: `// Code d'exemple`
+            },
+        ],
         documents: [
-            // À compléter avec les vrais documents
-            // { label: 'Convention de stage',     file: '/projets/nerleuro/convention-stage.pdf' },
-            // { label: 'Cahier des charges',      file: '/projets/nerleuro/cdc.pdf' },
-            // { label: 'MCD / MLD',               file: '/projets/nerleuro/mcd.png' },
+            { label: 'Convention de stage', file: '/projets/nerleuro/docs/convention.pdf', type: 'pdf', description: "Document officiel signé entre l'établissement, Nerleuro et l'étudiant" },
+            { label: 'Cahier des charges', file: '/projets/nerleuro/docs/cahier-des-charges.pdf', type: 'pdf', description: 'Spécifications fonctionnelles et techniques' },
+            { label: 'MCD de la base', file: '/projets/nerleuro/docs/mcd.png', type: 'image', description: 'Modèle conceptuel de données' },
         ],
-        images: [
-            // À compléter
-            // { src: '/projets/nerleuro/screen-01.png', alt: 'Page d\'accueil' },
-        ],
+
         competences: [
             'Gérer le patrimoine informatique',
             'Mettre à disposition un service informatique',
@@ -55,6 +78,8 @@ export const projects = [
             'Développer une application sécurisée',
         ],
     },
+
+
 
     {
         num: '02',
@@ -254,10 +279,22 @@ export const projects = [
             'Développer des composants logiciels',
             'Gérer les données',
         ],
+
+
     },
+
+
+
+
 ]
+
+
+
+
+
 
 // Helper function pour trouver un projet par son slug
 export const getProjectBySlug = (slug) => {
     return projects.find(p => p.slug === slug)
 }
+
