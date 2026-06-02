@@ -27,24 +27,24 @@ export const projects = [
                 // ICI LES IMAGES
 
                 images: [
-                    { src: '/projets/nerleuro/images/01-accueil.png', alt: "Page d'accueil de l'application", caption: "Tableau de bord praticien" },
-                    { src: '/projets/nerleuro/images/02-questionnaire.png', alt: "Passation d'un questionnaire ASRS", caption: "Questionnaire ASRS en cours" },
-                    { src: '/projets/nerleuro/images/03-scoring.png', alt: "Résultat du scoring", caption: "Affichage du score et interprétation" },
+                    { src: '/projets/lerneuro/images/accueil.png', alt: "Page d'accueil de l'application", caption: "Tableau de bord praticien" },
+                    { src: '/projets/lerneuro/images/testautisme.png', alt: "Passation d'un questionnaire ASRS", caption: "Questionnaire ASRS en cours" },
+                    { src: '/projets/lerneuro/images/03-scoring.png', alt: "Résultat du scoring", caption: "Affichage du score et interprétation" },
 
                 ],
 
             },
 
             {
-                title: 'Mission',
+                title: 'Test et scoring automatisé',
                 content: "Concevoir une application web interne qui automatise la passation des questionnaires, calcule les scores selon les barèmes officiels, génère des rapports lisibles, et envoie les bilans par e-mail aux bénéficiaires. L'ensemble devait fonctionner en local pour respecter la confidentialité des données médicales.",
             },
             {
-                title: 'Approche technique',
+                title: 'Formulaire mail',
                 content: "Le projet est construit sur Vue 3 + TypeScript + Vite. La gestion d'état utilise Pinia avec persistance localStorage. Le scoring est implémenté dans un module dédié (scoring.ts) qui contient les barèmes officiels de chaque questionnaire. La génération de rapport produit du TXT et du JSON exportables. Pour l'envoi de mails, j'ai documenté une procédure d'intégration avec un service SMTP côté serveur (à venir avec la base de données Laravel).",
             },
             {
-                title: 'Bilan',
+                title: 'Suite du projet',
                 content: "Le front-end est quasi complet. Les retours utilisateurs des psychologues professionnels ont permis d'améliorer l'ergonomie de l'interface. La prochaine étape est l'implémentation de la base de données et de l'API en Laravel, avec mise en place des tests automatisés.",
             },
         ],
