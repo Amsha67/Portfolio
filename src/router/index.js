@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import ProjectsView from '../views/ProjectsView.vue'
 import ProjectDetailView from '../views/ProjectDetailView.vue'
 import CompetencesView from '../views/CompetencesView.vue'
+import LegalView from '../views/LegalView.vue'
+import ContactView from '../views/ContactView.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -11,6 +13,8 @@ const router = createRouter({
         { path: '/projets', name: 'projects', component: ProjectsView },
         { path: '/projets/:slug', name: 'project-detail', component: ProjectDetailView },
         { path: '/competences', name: 'competences', component: CompetencesView },
+        { path: '/mentions-legales', name: 'legal', component: LegalView },
+        { path: '/contact', name: 'contact', component: ContactView },
     ],
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) return savedPosition
