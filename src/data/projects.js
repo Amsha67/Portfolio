@@ -8,6 +8,7 @@ export const projects = [
         num: '01',
         category: 'Stage',
         title: 'Lerneuro',
+        Contribution: 'Développement front-end Vue.js/back-end Laravel à venir',
         subtitle: 'Application de test neuroatypique',
         date: 'Mai → Juillet 2026',
         duration: '6 semaines',
@@ -24,13 +25,10 @@ export const projects = [
             {
                 title: 'Contexte',
                 content: "Nerleuro accompagne des personnes neuroatypiques (TDAH, TSA, troubles anxieux, addictions). Les praticiens utilisent quotidiennement plusieurs questionnaires validés scientifiquement pour évaluer leurs bénéficiaires. Avant ce projet, les bilans étaient remplis manuellement sur papier puis consulté par les psychologues ce qui prend un temps considérable.",
-                // ICI LES IMAGES
+
 
                 images: [
-                    { src: '/projets/lerneuro/images/accueil.png', alt: "Page d'accueil de l'application", caption: "Tableau de bord praticien" },
-                    { src: '/projets/lerneuro/images/testautisme.png', alt: "Passation d'un questionnaire ASRS", caption: "Questionnaire ASRS en cours" },
-                    { src: '/projets/lerneuro/images/03-scoring.png', alt: "Résultat du scoring", caption: "Affichage du score et interprétation" },
-
+                    { src: '/projets/lerneuro/images/accueil.png', alt: "Page d'accueil de l'application", caption: "Tableau de bord praticien" }
                 ],
 
             },
@@ -38,6 +36,7 @@ export const projects = [
             {
                 title: 'Test et scoring automatisé',
                 content: "Concevoir une application web interne qui automatise la passation des questionnaires, calcule les scores selon les barèmes officiels, génère des rapports lisibles, et envoie les bilans par e-mail aux bénéficiaires. L'ensemble devait fonctionner en local pour respecter la confidentialité des données médicales.",
+
             },
             {
                 title: 'Formulaire mail',

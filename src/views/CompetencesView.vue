@@ -53,6 +53,21 @@ const toggleCompetence = (comp) => {
         </div>
       </div>
 
+      <!-- Téléchargement officiel -->
+<div class="download-block">
+  <p class="download-label">Format officiel </p>
+  <a
+    href="/documents/tableau.xlsx"
+    download
+    class="download-btn"
+  >
+    <span>Télécharger le tableau de synthèse</span>
+    <span class="download-meta">.xlsx · 15 Ko</span>
+  </a>
+</div>
+
+
+
       <!-- Tableau de synthèse officiel -->
       <header class="section-block-header">
         <p class="section-eyebrow">Document officiel</p>
@@ -399,6 +414,57 @@ const toggleCompetence = (comp) => {
   transition: transform 0.3s ease;
 }
 
+
+/* Tableau XLSX */
+.download-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  margin: 0 0 1.5rem;
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.download-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+  transition: color 0.5s ease;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover { background: var(--accent-soft); }
+
+.download-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .download-block { flex-direction: column; align-items: stretch; }
+  .download-btn { justify-content: center; }
+}
+
 /* Responsive */
 @media (max-width: 720px) {
   .competences-page { padding: 5rem 1.25rem 4rem; }
@@ -407,4 +473,6 @@ const toggleCompetence = (comp) => {
   .competence-count { display: none; }
   .competence-detail { padding-left: 0; }
 }
+
+
 </style>

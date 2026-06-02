@@ -89,6 +89,17 @@ const project = computed(() => getProjectBySlug(route.params.slug))
         <p class="section-content">{{ section.content }}</p>
       </div>
     </section>
+
+    <!-- Contribution personnelle  -->
+<section v-if="project.contribution" class="detail-section detail-contribution">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">→</span>
+      Ma contribution personnelle
+    </h2>
+    <p class="section-content contribution-text">{{ project.contribution }}</p>
+  </div>
+</section>
 <!-- Galerie d'images -->
 <section v-if="project.images && project.images.length" class="detail-section">
   <div class="section-inner">
@@ -459,5 +470,12 @@ const project = computed(() => getProjectBySlug(route.params.slug))
   .section-inner { padding: 0 1.25rem; }
   .detail-header { padding: 5rem 0 3rem; }
   .detail-infos { grid-template-columns: repeat(2, 1fr); }
+}
+.detail-contribution .section-content {
+  padding: 1.5rem 1.75rem;
+  background: var(--bg-elevated);
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  transition: background 0.5s ease, border-color 0.5s ease;
 }
 </style>

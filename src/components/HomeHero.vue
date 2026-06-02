@@ -30,6 +30,26 @@ const stats = [
           </li>
         </ul>
       </div>
+      <div class="hero-cta">
+  <a
+    href="https://www.linkedin.com/in/eric-schmoelzlin-824274220"
+    target="_blank"
+    rel="noopener"
+    class="cta-linkedin"
+  >
+    <span>Profil LinkedIn</span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+  <a
+    href="https://github.com/Amsha67"
+    target="_blank"
+    rel="noopener"
+    class="cta-github"
+  >
+    <span>GitHub</span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+</div>
 
       <div class="hero-photo">
         <div class="hero-photo-placeholder">
@@ -173,5 +193,53 @@ const stats = [
 @media (max-width: 640px) {
   .hero { padding: 3rem 1.25rem; }
   .hero-stats { flex-direction: column; gap: 1.5rem; }
+}
+
+.hero-cta {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.cta-linkedin,
+.cta-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-linkedin {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.cta-linkedin:hover {
+  background: var(--accent-soft);
+}
+
+.cta-github {
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+
+.cta-github:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hero-cta .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.cta-linkedin:hover .arrow,
+.cta-github:hover .arrow {
+  transform: translateX(3px);
 }
 </style>
