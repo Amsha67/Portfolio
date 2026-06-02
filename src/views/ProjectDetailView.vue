@@ -5,9 +5,18 @@ import { getProjectBySlug } from '../data/projects'
 import ProjectGallery from '../components/ProjectGallery.vue'
 import ProjectDocuments from '../components/ProjectDocuments.vue'
 import ProjectCodeBlock from '../components/ProjectCodeBlock.vue'
+import { allCompetences } from '../data/competences'
 
 const route = useRoute()
 const project = computed(() => getProjectBySlug(route.params.slug))
+
+// Récupère les compétences détaillées (label, code, details) à partir des codes
+const projectCompetences = computed(() => {
+  if (!project.value?.competences) return []
+  return project.value.competences
+    .map(code => allCompetences.find(c => c.code === code))
+    .filter(Boolean)
+})
 </script>
 
 <template>
@@ -79,16 +88,33 @@ const project = computed(() => getProjectBySlug(route.params.slug))
       </div>
     </header>
 
-    <!-- Sections de contenu -->
-    <section v-for="(section, i) in project.sections" :key="i" class="detail-section">
-      <div class="section-inner">
-        <h2 class="section-title">
-          <span class="section-num">{{ String(i + 1).padStart(2, '0') }}</span>
-          {{ section.title }}
-        </h2>
-        <p class="section-content">{{ section.content }}</p>
-      </div>
-    </section>
+    
+    <!-- Sections de contenu : titre + texte + image + code -->
+<section v-for="(section, i) in project.sections" :key="i" class="detail-section">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">{{ String(i + 1).padStart(2, '0') }}</span>
+      {{ section.title }}
+    </h2>
+
+    <p class="section-content">{{ section.content }}</p>
+
+    <!-- Image liée à la section -->
+    <figure v-if="section.image" class="section-image">
+      <img :src="section.image.src" :alt="section.image.alt" loading="lazy" />
+      <figcaption v-if="section.image.caption">{{ section.image.caption }}</figcaption>
+    </figure>
+
+    <!-- Code lié à la section -->
+    <ProjectCodeBlock
+      v-if="section.code"
+      :title="section.code.title"
+      :description="section.code.description"
+      :language="section.code.language"
+      :code="section.code.code"
+    />
+  </div>
+</section>
 
     <!-- Contribution personnelle  -->
 <section v-if="project.contribution" class="detail-section detail-contribution">
@@ -112,7 +138,7 @@ const project = computed(() => getProjectBySlug(route.params.slug))
   </div>
 </section>
 
-<!-- Documents (remplace l'ancien bloc <section v-if="project.documents...) -->
+<!-- Documents  -->
 <section v-if="project.documents && project.documents.length" class="detail-section">
   <div class="section-inner">
     <h2 class="section-title">
@@ -145,21 +171,32 @@ const project = computed(() => getProjectBySlug(route.params.slug))
     
 
     <!-- Compétences validées -->
-    <section v-if="project.competences && project.competences.length" class="detail-section detail-competences">
-      <div class="section-inner">
-        <h2 class="section-title">
-          <span class="section-num">{{ String(project.sections.length + (project.documents.length ? 2 : 1)).padStart(2, '0') }}</span>
-          Compétences validées
-        </h2>
-        <ul class="competences-list">
-          <li v-for="competence in project.competences" :key="competence">
-            <span class="check">✓</span>
-            {{ competence }}
-          </li>
-        </ul>
-      </div>
-    </section>
+<section v-if="projectCompetences.length" class="detail-section detail-competences">
+  <div class="section-inner">
+    <h2 class="section-title">
+      <span class="section-num">→</span>
+      Compétences validées
+    </h2>
+    <p class="section-content">
+      Ce projet mobilise les compétences suivantes du référentiel BTS SIO option SLAM.
+    </p>
 
+    <ul class="competences-list">
+      <li v-for="comp in projectCompetences" :key="comp.code" class="competence-item">
+        <span class="comp-code">{{ comp.code }}</span>
+        <div class="comp-info">
+          <p class="comp-label">{{ comp.label }}</p>
+          <p class="comp-details">{{ comp.details }}</p>
+        </div>
+      </li>
+    </ul>
+
+    <RouterLink to="/competences" class="competences-link">
+      Voir le tableau de synthèse complet
+      <span class="arrow" aria-hidden="true">→</span>
+    </RouterLink>
+  </div>
+</section>
     <!-- Pied / navigation -->
     <footer class="detail-footer">
       <div class="section-inner">
@@ -477,5 +514,105 @@ const project = computed(() => getProjectBySlug(route.params.slug))
   border-left: 3px solid var(--accent);
   font-style: italic;
   transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.section-image {
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.section-image img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  transition: border-color 0.5s ease;
+}
+
+.section-image figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  letter-spacing: 0.03em;
+  transition: color 0.5s ease;
+}
+
+.competences-list {
+  list-style: none;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.competence-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.comp-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.comp-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.comp-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0 0 0.3rem;
+  transition: color 0.5s ease;
+}
+
+.comp-details {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+  transition: color 0.5s ease;
+}
+
+.competences-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.competences-link:hover { gap: 0.8rem; }
+
+.competences-link .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
 }
 </style>

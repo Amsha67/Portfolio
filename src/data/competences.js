@@ -1,5 +1,6 @@
-// Référentiel des compétences du BTS SIO option SLAM (1ère année)
-// Chaque compétence indique quels projets la valident (via leur slug)
+// Référentiel des compétences du BTS SIO — Bloc 1
+// "Support et mise à disposition de services informatiques"
+// Codes alignés avec le tableau de synthèse E5 officiel (C, D, E, F, G, H)
 
 export const competenceGroups = [
     {
@@ -7,78 +8,54 @@ export const competenceGroups = [
         title: 'Support et mise à disposition de services informatiques',
         competences: [
             {
-                code: 'B1.1',
+                code: 'C',
                 label: 'Gérer le patrimoine informatique',
-                details: 'Recenser et identifier les ressources numériques, exploiter des référentiels, gérer des configurations.',
-                projects: ['nerleuro', 'parcus'],
+                details: 'Recenser et identifier les ressources numériques, exploiter des référentiels, gérer des configurations, mettre en place et vérifier les niveaux d\'habilitation, vérifier la continuité d\'un service informatique, gérer des sauvegardes.',
+                projects: ['nerleuro', 'parcus', 'todo-app', 'tp-collection'],
             },
             {
-                code: 'B1.2',
+                code: 'D',
                 label: 'Répondre aux incidents et aux demandes d\'assistance',
-                details: 'Collecter, suivre, orienter, traiter et clôturer une demande d\'assistance.',
+                details: 'Collecter, suivre, orienter et traiter les demandes d\'assistance. Traiter des demandes concernant les services réseau, système et les applications.',
                 projects: ['parcus'],
             },
             {
-                code: 'B1.3',
+                code: 'E',
                 label: 'Développer la présence en ligne de l\'organisation',
-                details: 'Référencer les services en ligne, communiquer sur les services proposés.',
+                details: 'Participer à la valorisation de l\'image de l\'organisation sur les médias numériques. Référencer les services en ligne et mesurer leur visibilité. Participer à l\'évolution d\'un site Web.',
                 projects: ['clean-co', 'portfolio'],
             },
             {
-                code: 'B1.4',
+                code: 'F',
                 label: 'Travailler en mode projet',
-                details: 'Analyser des objectifs, planifier les activités, évaluer les indicateurs de succès.',
-                projects: ['nerleuro', 'clean-co', 'parcus', 'portfolio'],
+                details: 'Analyser les objectifs et les modalités d\'organisation d\'un projet, planifier les activités, évaluer les indicateurs de suivi et analyser les écarts.',
+                projects: ['nerleuro', 'clean-co', 'parcus', 'portfolio', 'todo-app', 'tp-collection'],
             },
             {
-                code: 'B1.5',
+                code: 'G',
                 label: 'Mettre à disposition des utilisateurs un service informatique',
-                details: 'Réaliser les tests d\'intégration, déployer un service, accompagner les utilisateurs.',
-                projects: ['nerleuro', 'clean-co'],
+                details: 'Réaliser les tests d\'intégration et d\'acceptation, déployer un service, accompagner les utilisateurs dans la mise en place d\'un service.',
+                projects: ['nerleuro', 'clean-co', 'parcus', 'todo-app'],
             },
             {
-                code: 'B1.6',
+                code: 'H',
                 label: 'Organiser son développement professionnel',
-                details: 'Mettre en place son environnement d\'apprentissage personnel, développer son projet professionnel.',
+                details: 'Mettre en place son environnement d\'apprentissage personnel, mettre en œuvre des outils et stratégies de veille informationnelle, gérer son identité professionnelle, développer son projet professionnel.',
                 projects: ['portfolio'],
-            },
-        ],
-    },
-    {
-        code: 'B2-SLAM',
-        title: 'Conception et développement d\'applications (SLAM)',
-        competences: [
-            {
-                code: 'B2.1',
-                label: 'Concevoir et développer une solution applicative',
-                details: 'Analyser un besoin, concevoir et modéliser une application, choisir une architecture, développer.',
-                projects: ['nerleuro', 'todo-app', 'tp-collection', 'portfolio'],
-            },
-            {
-                code: 'B2.2',
-                label: 'Assurer la maintenance corrective et évolutive d\'une application',
-                details: 'Analyser et corriger un dysfonctionnement, évaluer l\'impact d\'une modification.',
-                projects: ['nerleuro'],
-            },
-            {
-                code: 'B2.3',
-                label: 'Gérer les données',
-                details: 'Exploiter des données à l\'aide d\'un langage de requêtes, contrôler la qualité des données.',
-                projects: ['nerleuro', 'todo-app', 'tp-collection'],
             },
         ],
     },
 ]
 
-// Helper : récupère toutes les compétences à plat
+// Helper : toutes les compétences à plat
 export const allCompetences = competenceGroups.flatMap(g => g.competences)
 
-// Helper : retourne les compétences validées par un projet donné
+// Helper : compétences validées par un projet donné
 export const getCompetencesForProject = (projectSlug) => {
     return allCompetences.filter(c => c.projects.includes(projectSlug))
 }
 
-// Statistiques globales
+// Stats globales
 export const stats = {
     totalCompetences: allCompetences.length,
     validatedCompetences: allCompetences.filter(c => c.projects.length > 0).length,
