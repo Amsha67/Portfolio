@@ -18,7 +18,7 @@ const realisations = [
     items: [
       {
         titre: 'Portfolio personnel — HTML / CSS from scratch',
-        periode: '01/09/25 → 30/11/25',
+        periode: '01/06/26',
         slug: 'portfolio',
         competences: ['E', 'H'],
       },
@@ -36,7 +36,7 @@ const realisations = [
       },
       {
         titre: "Projet AP2 « Parcus » — Infrastructure réseau d'une DSI sur VM",
-        periode: '06/01/26 → 28/02/26',
+        periode: '06/01/26 → 28/06/26',
         slug: 'parcus',
         competences: ['C', 'D', 'F', 'G'],
       },
@@ -65,9 +65,9 @@ const realisations = [
       },
       {
         titre: 'Mission freelance — Site vitrine WordPress Clean & CO',
-        periode: '05/01/26 → 05/05/26',
+        periode: '03/05/26 → 03/07/26',
         slug: 'clean-co',
-        competences: ['E', 'F', 'G'],
+        competences: ['E', 'F', 'G',  'H'],
       },
     ],
   },
@@ -97,7 +97,7 @@ const getProject = (slug) => projects.find(p => p.slug === slug)
       </div>
       <p class="meta-line">
         <span class="meta-label">URL portfolio</span>
-        <span class="meta-value">[en cours de finalisation]</span>
+        <span class="meta-value">https://portfolio-2026-ecru-three.vercel.app/</span>
       </p>
     </header>
 

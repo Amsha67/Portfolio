@@ -56,7 +56,7 @@ const stats = [
           <span>Portrait</span>
         </div>
         
-        <!-- <img src="/images/portrait.jpg" alt="Portrait d'Eric Schmoezlin" /> -->
+         <img src="./src/images/icon.png" alt="Portrait d'Eric Schmoezlin" /> 
       </div>
 
     </div>
