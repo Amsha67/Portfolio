@@ -405,7 +405,7 @@ export function calculerScore(
         stack: ['Vue 3', 'Vite', 'NPM', 'EmailJS', 'CSS Variables'],
         slug: 'portfolio',
         featured: false,
-        liveUrl: 'https://portfolio-2026-igb0zsetx-amsha67s-projects.vercel.app/',
+        liveUrl: 'https://portfolio-2026-hej3bzg9y-amsha67s-projects.vercel.app/',
         githubUrl: 'https://github.com/Amsha67/portfolio',
 
         sections: [
@@ -472,7 +472,7 @@ const toggleTheme = () => {
                 },
             },
             {
-                title: 'Déploiement continu (CI/CD)',
+                title: 'Déploiement continu ',
                 content: "L'intégralité du code source est versionnée sur un dépôt distant GitHub. J'ai couplé ce dépôt à la plateforme d'hébergement Vercel. Cette intégration crée un pipeline de déploiement continu (CI/CD) : chaque nouvelle fonctionnalité poussée (push) sur la branche principale déclenche automatiquement une commande de build (`npm run build`) sur les serveurs de Vercel, mettant le site en production instantanément sans interruption de service.",
             },
         ],
