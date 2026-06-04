@@ -405,7 +405,7 @@ export function calculerScore(
         stack: ['Vue 3', 'Vite', 'NPM', 'EmailJS', 'CSS Variables'],
         slug: 'portfolio',
         featured: false,
-        liveUrl: 'https://portfolio-2026-hej3bzg9y-amsha67s-projects.vercel.app/',
+        liveUrl: 'https://portfolio-2026-ecru-three.vercel.app/',
         githubUrl: 'https://github.com/Amsha67/portfolio',
 
         sections: [
@@ -474,6 +474,7 @@ const toggleTheme = () => {
             {
                 title: 'Déploiement continu ',
                 content: "L'intégralité du code source est versionnée sur un dépôt distant GitHub. J'ai couplé ce dépôt à la plateforme d'hébergement Vercel. Cette intégration crée un pipeline de déploiement continu (CI/CD) : chaque nouvelle fonctionnalité poussée (push) sur la branche principale déclenche automatiquement une commande de build (`npm run build`) sur les serveurs de Vercel, mettant le site en production instantanément sans interruption de service.",
+
             },
         ],
 
@@ -483,89 +484,20 @@ const toggleTheme = () => {
         competences: ['E', 'F', 'H'],
     },
     // ============================================================
-    // 05 — TODO APP (Cours)
+    // 05 — GESTION DE COLLECTION (Cours)
     // ============================================================
     {
         num: '05',
         category: 'Cours',
-        title: 'ToDo App',
-        subtitle: 'Gestion de tâches PHP/MySQL',
-        date: 'Septembre → Octobre 2025',
-        duration: '6 semaines',
-        location: 'BTS SIO — TP',
-        role: 'Solo',
-        shortDescription: "Application de gestion de tâches : CRUD intégral, requêtes préparées PDO, échappement htmlspecialchars, validation côté client.",
-        longDescription: "Travaux pratiques de première année : développement d'une application complète de gestion de tâches en PHP/MySQL. CRUD intégral, sécurité (requêtes préparées PDO, échappement HTML), validation côté client en JavaScript, structure modulaire avec require pour les éléments mutualisés.",
-        stack: ['PHP', 'MySQL', 'PDO', 'JavaScript', 'MAMP'],
-        slug: 'todo-app',
-        featured: false,
-        liveUrl: null,
-        githubUrl: null,
-
-        sections: [
-            {
-                title: 'Objectifs pédagogiques',
-                content: "Maîtriser les fondamentaux PHP/MySQL : connexion via PDO, manipulation de données en CRUD, sécurisation contre les injections SQL et XSS, structure modulaire d'un projet web procédural.",
-                image: {
-                    src: '/todo-app/images/accueil.png',
-                    alt: "Page d'accueil ToDo App",
-                    caption: "Interface principale"
-                },
-            },
-            {
-                title: 'Sécurité : requêtes préparées',
-                content: "Utilisation systématique des requêtes préparées PDO pour se protéger des injections SQL. Échappement des sorties HTML avec htmlspecialchars pour éviter les attaques XSS.",
-                code: {
-                    title: 'Insertion sécurisée d\'une tâche',
-                    description: "Requête préparée avec paramètres nommés.",
-                    language: 'php',
-                    code: `<?php
-$sql = "INSERT INTO taches (titre, description, statut) 
-        VALUES (:titre, :description, :statut)";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([
-    ':titre' => $_POST['titre'],
-    ':description' => $_POST['description'],
-    ':statut' => 'en_cours'
-]);`
-                },
-            },
-            {
-                title: 'CRUD complet',
-                content: "Implémentation des quatre opérations classiques : création, lecture, mise à jour, suppression. Chaque action est sécurisée et gère les cas d'erreur (tâche introuvable, données invalides).",
-                image: {
-                    src: '/todo-app/images/edition.png',
-                    alt: "Édition d'une tâche",
-                    caption: "Formulaire d'édition"
-                },
-            },
-            {
-                title: 'Validation côté client',
-                content: "Validation JavaScript des formulaires avant envoi : champs obligatoires, longueurs minimum/maximum, formats. Cela évite des allers-retours inutiles au serveur tout en gardant la validation côté serveur comme rempart de sécurité.",
-            },
-        ],
-
-        documents: [],
-        images: [],
-        codeBlocks: [],
-        competences: ['C', 'F', 'G'],
-    },
-
-    // ============================================================
-    // 06 — TP COLLECTION (Cours)
-    // ============================================================
-    {
-        num: '06',
-        category: 'Cours',
-        title: 'TP Collection',
-        subtitle: 'SQL multi-tables avec JOIN',
+        title: 'Ludothèque',
+        subtitle: 'Architecture CRUD & Base Relationnelle',
         date: 'Novembre → Décembre 2025',
         duration: '4 semaines',
         location: 'BTS SIO — TP',
-        role: 'Solo',
-        shortDescription: "Modélisation à 4 tables liées, requêtes JOIN et LEFT JOIN, architecture modulaire.",
-        longDescription: "Travaux pratiques de gestion de collection personnelle (mangas, livres, DVDs) en PHP/MySQL avec 4 tables liées. Pratique des relations entre entités, des jointures SQL et de l'architecture modulaire d'un projet PHP procédural.",
-        stack: ['PHP', 'MySQL', 'PDO', 'JOIN'],
+        role: 'Développeur SQL/PHP',
+        shortDescription: "Système de gestion de collection de jeux vidéo : base de données relationnelle, contrôleur frontal et implémentation d'un CRUD sécurisé.",
+        longDescription: "Ce projet valide l'acquisition des fondamentaux du développement web dynamique en PHP et de la modélisation de données. J'ai conçu un gestionnaire de ludothèque reliant des Jeux, des Plateformes et des Développeurs. L'environnement a été configuré via MAMP, et la structure de la base a été pensée pour éviter toute redondance de données.",
+        stack: ['PHP 8', 'MySQL', 'MAMP', 'phpMyAdmin', 'PDO'],
         slug: 'tp-collection',
         featured: false,
         liveUrl: null,
@@ -573,46 +505,52 @@ $stmt->execute([
 
         sections: [
             {
-                title: 'Modélisation relationnelle',
-                content: "Conception d'un modèle de données à 4 tables liées avec clés étrangères : collections, items, catégories, tags. Mise en pratique des concepts de relations 1-N et N-N avec table de jointure.",
+                title: 'Environnement & Schéma Relationnel',
+                content: "J'ai utilisé MAMP pour le serveur local et phpMyAdmin pour concevoir la base de données. Le modèle repose sur trois tables principales interconnectées. L'utilisation de la vue Concepteur m'a permis de définir visuellement les clés étrangères (Foreign Keys) pour garantir l'intégrité référentielle entre les jeux, leurs développeurs et les plateformes.",
                 image: {
-                    src: '/tp-collection/images/mcd.png',
-                    alt: "MCD de la collection",
-                    caption: "Modèle conceptuel de données"
-                },
+                    src: '/images/collection-mcd.png',
+                    alt: "Vue Concepteur de phpMyAdmin",
+                    caption: "Relations entre les tables via les clés primaires et étrangères"
+                }
             },
             {
-                title: 'Jointures SQL',
-                content: "Utilisation des JOIN et LEFT JOIN pour récupérer des données réparties sur plusieurs tables. Gestion des cas où certaines relations sont optionnelles (LEFT JOIN) vs obligatoires (INNER JOIN).",
+                title: 'Architecture du Contrôleur',
+                content: "Le code est structuré autour d'un routeur simple (contrôleur frontal). Toutes les requêtes passent par l'index, qui utilise une instruction 'switch' pour analyser l'URL et rediriger l'utilisateur vers la bonne vue (Dashboard, Liste des jeux, Formulaires d'ajout) ou exécuter la bonne logique métier.",
+                image: {
+                    src: '/images/collection-dashboard.png',
+                    alt: "Tableau de bord de l'application",
+                    caption: "Interface utilisateur avec statistiques dynamiques"
+                }
+            },
+            {
+                title: 'Implémentation du CRUD et Jointures',
+                content: "L'application permet de Créer, Lire, Modifier et Supprimer (CRUD) des jeux. Pour afficher la liste complète d'un jeu avec le nom de sa console plutôt que son ID technique, j'ai utilisé des requêtes SQL avec des clauses JOIN (Jointures).",
                 code: {
-                    title: 'Requête JOIN multi-tables',
-                    description: "Récupération d'une collection avec ses items, leur catégorie et leurs tags.",
+                    title: 'Requête d\'affichage multi-tables (Read)',
+                    description: "Utilisation des jointures pour lier la table des jeux à celles des plateformes et développeurs.",
                     language: 'sql',
                     code: `SELECT 
-    c.nom AS collection,
-    i.titre AS item,
-    cat.nom AS categorie,
-    GROUP_CONCAT(t.nom) AS tags
-FROM collections c
-INNER JOIN items i ON i.collection_id = c.id
-LEFT JOIN categories cat ON i.categorie_id = cat.id
-LEFT JOIN items_tags it ON it.item_id = i.id
-LEFT JOIN tags t ON it.tag_id = t.id
-WHERE c.id = :collection_id
-GROUP BY i.id;`
-                },
+    games.title, 
+    games.release_year, 
+    platforms.name AS platform_name, 
+    developers.name AS developer_name
+FROM games
+INNER JOIN platforms ON games.platform_id = platforms.id
+INNER JOIN developers ON games.developer_id = developers.id
+ORDER BY games.title ASC;`
+                }
             },
             {
-                title: 'Architecture modulaire',
-                content: "Mise en place d'une structure de projet réutilisable : un fichier header et footer mutualisés via require, un fichier de connexion PDO centralisé, des fonctions utilitaires regroupées dans un fichier helpers.php.",
-            },
+                title: 'Sécurité : Protection PDO et XSS',
+                content: "La sécurité a été une priorité. Toutes les transactions insérant ou modifiant des données utilisent l'objet PDO et des requêtes préparées (pour contrer les injections SQL). De plus, l'affichage des données saisies par l'utilisateur est protégé contre les failles XSS (Cross-Site Scripting) grâce à la fonction PHP htmlspecialchars()."
+            }
         ],
 
         documents: [],
         images: [],
         codeBlocks: [],
-        competences: ['C', 'F'],
-    },
+        competences: ['C', 'F', 'G'],
+    }
 
 ]
 

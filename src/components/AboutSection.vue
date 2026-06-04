@@ -24,7 +24,7 @@ const infos = [
         <div class="about-text">
           <p>
             Étudiant en première année de <strong>BTS SIO option SLAM</strong>
-            (Solutions Logicielles et Applications Métiers) à l'IFIDE Strasbourg.
+            (Solutions Logicielles et Applications Métiers) à IFIDE sup formation Eckbolsheim.
             Mon parcours combine une formation technique solide et une activité
             de freelance qui me permet d'appliquer mes compétences sur des
             projets clients réels.
@@ -32,7 +32,7 @@ const infos = [
           <p>
             Mes domaines couvrent le développement web full-stack
             (PHP/MySQL, Vue.js, Node.js), la gestion de projet (cahier des
-            charges, planning, livrables) et l'administration de bases de
+            charges, planning, livrables, documentation) et l'administration de bases de
             données. J'attache une importance particulière à la
             <strong>sécurité </strong> et à la qualité de la documentation.
           </p>

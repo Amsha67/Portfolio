@@ -2,7 +2,7 @@
 // Stats affichées sous la tagline
 const stats = [
   { value: '1',  label: 'année BTS SIO' },
-  { value: '6',  label: 'projets référencés' },
+  { value: '5',  label: 'projets référencés' },
   { value: '4+', label: 'technologies' },
 ]
 </script>
@@ -21,6 +21,7 @@ const stats = [
         <p class="hero-tagline">
           Étudiant en BTS SIO option SLAM, première année à Strasbourg.
           Développeur en formation, passionné par l'informatique et les nouvelles technologies.
+          En stage et à la recherche active d'une alternance pour la rentrée 2026.
         </p>
 
         <ul class="hero-stats">
