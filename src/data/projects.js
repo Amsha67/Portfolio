@@ -473,7 +473,7 @@ const toggleTheme = () => {
             },
             {
                 title: 'Déploiement continu ',
-                content: "L'intégralité du code source est versionnée sur un dépôt distant GitHub. J'ai couplé ce dépôt à la plateforme d'hébergement Vercel. Cette intégration crée un pipeline de déploiement continu (CI/CD) : chaque nouvelle fonctionnalité poussée (push) sur la branche principale déclenche automatiquement une commande de build (`npm run build`) sur les serveurs de Vercel, mettant le site en production instantanément sans interruption de service.",
+                content: "L'intégralité du code source est versionnée sur un dépôt distant GitHub. J'ai couplé ce dépôt à la plateforme d'hébergement Vercel. Cette intégration crée un pipeline de déploiement continu : chaque nouvelle fonctionnalité poussée (push) sur la branche principale déclenche automatiquement une commande de build (`npm run build`) sur les serveurs de Vercel, mettant le site en production instantanément sans interruption de service.",
 
             },
         ],
