@@ -11,7 +11,7 @@ export const competenceGroups = [
                 code: 'C',
                 label: 'Gérer le patrimoine informatique',
                 details: 'Recenser et identifier les ressources numériques, exploiter des référentiels, gérer des configurations, mettre en place et vérifier les niveaux d\'habilitation, vérifier la continuité d\'un service informatique, gérer des sauvegardes.',
-                projects: ['nerleuro', 'parcus', 'todo-app', 'tp-collection'],
+                projects: ['nerleuro', 'parcus', 'tp-collection'],
             },
             {
                 code: 'D',
@@ -29,13 +29,13 @@ export const competenceGroups = [
                 code: 'F',
                 label: 'Travailler en mode projet',
                 details: 'Analyser les objectifs et les modalités d\'organisation d\'un projet, planifier les activités, évaluer les indicateurs de suivi et analyser les écarts.',
-                projects: ['nerleuro', 'clean-co', 'parcus', 'portfolio', 'todo-app', 'tp-collection'],
+                projects: ['nerleuro', 'clean-co', 'parcus', 'portfolio', 'tp-collection'],
             },
             {
                 code: 'G',
                 label: 'Mettre à disposition des utilisateurs un service informatique',
                 details: 'Réaliser les tests d\'intégration et d\'acceptation, déployer un service, accompagner les utilisateurs dans la mise en place d\'un service.',
-                projects: ['nerleuro', 'clean-co', 'parcus', 'todo-app'],
+                projects: ['nerleuro', 'clean-co', 'parcus', 'tp-collection'],
             },
             {
                 code: 'H',

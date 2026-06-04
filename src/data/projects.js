@@ -484,20 +484,20 @@ const toggleTheme = () => {
         competences: ['E', 'F', 'H'],
     },
     // ============================================================
-    // 05 — GESTION DE COLLECTION (Cours)
+    // 05 — GESTION DE COLLECTION (anciennement TP Collection)
     // ============================================================
     {
         num: '05',
         category: 'Cours',
-        title: 'Ludothèque',
-        subtitle: 'Architecture CRUD & Base Relationnelle',
-        date: 'Novembre → Décembre 2025',
-        duration: '4 semaines',
+        title: 'Gestion de collection',
+        subtitle: 'Base relationnelle, CRUD et sécurité',
+        date: 'Novembre 2025 → Mai 2026',
+        duration: 'Projet récurrent',
         location: 'BTS SIO — TP',
-        role: 'Développeur SQL/PHP',
-        shortDescription: "Système de gestion de collection de jeux vidéo : base de données relationnelle, contrôleur frontal et implémentation d'un CRUD sécurisé.",
-        longDescription: "Ce projet valide l'acquisition des fondamentaux du développement web dynamique en PHP et de la modélisation de données. J'ai conçu un gestionnaire de ludothèque reliant des Jeux, des Plateformes et des Développeurs. L'environnement a été configuré via MAMP, et la structure de la base a été pensée pour éviter toute redondance de données.",
-        stack: ['PHP 8', 'MySQL', 'MAMP', 'phpMyAdmin', 'PDO'],
+        role: 'Solo',
+        shortDescription: "Application PHP/MySQL de gestion d'une collection personnelle (livres, mangas, jeux). Modélisation relationnelle, CRUD complet avec jointures, sécurisation PDO, ajout d'un système favoris et d'une authentification.",
+        longDescription: "Projet pédagogique central de la première année pour la maîtrise de PHP, MySQL et de la sécurité applicative. L'application gère une collection composée de différentes catégories (jeux, mangas, livres...), avec une notion de possession et un système de favoris. Le projet a évolué progressivement : modélisation relationnelle de la base, écriture des requêtes SQL, mise en place du CRUD complet, ajout d'un système d'authentification sécurisé (bcrypt + logs de connexion) et de fonctionnalités d'exploitation (favoris, filtrage).",
+        stack: ['PHP 8', 'MySQL', 'PDO', 'MAMP', 'phpMyAdmin', 'Bcrypt'],
         slug: 'tp-collection',
         featured: false,
         liveUrl: null,
@@ -505,52 +505,216 @@ const toggleTheme = () => {
 
         sections: [
             {
-                title: 'Environnement & Schéma Relationnel',
-                content: "J'ai utilisé MAMP pour le serveur local et phpMyAdmin pour concevoir la base de données. Le modèle repose sur trois tables principales interconnectées. L'utilisation de la vue Concepteur m'a permis de définir visuellement les clés étrangères (Foreign Keys) pour garantir l'intégrité référentielle entre les jeux, leurs développeurs et les plateformes.",
+                title: 'Environnement de développement',
+                content: "Le projet est développé en local avec MAMP, qui fournit la pile Apache + MySQL + PHP. L'administration de la base passe par phpMyAdmin, ce qui m'a permis de créer les tables visuellement avant de basculer sur l'écriture des requêtes SQL en pur. Le moteur de stockage choisi est InnoDB, indispensable pour bénéficier des clés étrangères et donc de l'intégrité référentielle.",
                 image: {
-                    src: '/images/collection-mcd.png',
-                    alt: "Vue Concepteur de phpMyAdmin",
-                    caption: "Relations entre les tables via les clés primaires et étrangères"
-                }
+                    src: '/tp-collection/images/mamp.png',
+                    alt: "Environnement MAMP + phpMyAdmin",
+                    caption: "MAMP pour le serveur local, phpMyAdmin pour l'administration de la base"
+                },
             },
             {
-                title: 'Architecture du Contrôleur',
-                content: "Le code est structuré autour d'un routeur simple (contrôleur frontal). Toutes les requêtes passent par l'index, qui utilise une instruction 'switch' pour analyser l'URL et rediriger l'utilisateur vers la bonne vue (Dashboard, Liste des jeux, Formulaires d'ajout) ou exécuter la bonne logique métier.",
+                title: 'Modélisation de la base relationnelle',
+                content: "J'ai modélisé la base autour de trois tables principales : collections (les catégories : Mangas, Jeux, Livres...), types_collection (les sous-types) et elements_collection (les items eux-mêmes : un manga précis, un jeu précis...). Les éléments sont liés à leur collection par une clé étrangère id_collection, et chaque collection est typée via id_type. Cette structure m'a permis de pratiquer les relations 1-N entre entités ( 1 auteur, plusieurs livres).",
                 image: {
-                    src: '/images/collection-dashboard.png',
-                    alt: "Tableau de bord de l'application",
-                    caption: "Interface utilisateur avec statistiques dynamiques"
-                }
+                    src: '/tp-collection/images/mcd.png',
+                    alt: "Modèle relationnel des trois tables",
+                    caption: "tables liées par clés étrangères"
+                },
             },
             {
-                title: 'Implémentation du CRUD et Jointures',
-                content: "L'application permet de Créer, Lire, Modifier et Supprimer (CRUD) des jeux. Pour afficher la liste complète d'un jeu avec le nom de sa console plutôt que son ID technique, j'ai utilisé des requêtes SQL avec des clauses JOIN (Jointures).",
+                title: 'Requêtes SQL : du simple au JOIN',
+                content: "Une grande partie du TP consistait à écrire et comprendre les requêtes SQL sans les générer via PHP. J'ai progressivement enchaîné les difficultés : SELECT simples, filtrage avec WHERE (possede = 1, numero > X, LIKE '%Dark%'), combinaisons logiques (AND, OR), tri avec ORDER BY, puis les jointures INNER JOIN sur plusieurs tables.",
                 code: {
-                    title: 'Requête d\'affichage multi-tables (Read)',
-                    description: "Utilisation des jointures pour lier la table des jeux à celles des plateformes et développeurs.",
+                    title: 'Progression des requêtes SQL',
+                    description: "Des SELECT basiques aux JOIN multi-tables — la maîtrise du langage SQL.",
                     language: 'sql',
-                    code: `SELECT 
-    games.title, 
-    games.release_year, 
-    platforms.name AS platform_name, 
-    developers.name AS developer_name
-FROM games
-INNER JOIN platforms ON games.platform_id = platforms.id
-INNER JOIN developers ON games.developer_id = developers.id
-ORDER BY games.title ASC;`
-                }
+                    code: `-- Filtrage simple
+SELECT * FROM elements_collection WHERE possede = 1;
+SELECT * FROM elements_collection WHERE titre_element LIKE '%Dark%';
+SELECT * FROM elements_collection WHERE possede = 1 AND numero > 1;
+
+-- Tri
+SELECT * FROM elements_collection ORDER BY numero ASC;
+SELECT * FROM elements_collection ORDER BY titre_element ASC;
+
+-- Jointure sur deux tables : élément + sa collection
+SELECT e.titre_element, c.nom_collection
+FROM elements_collection e
+JOIN collections c ON e.id_collection = c.id_collection;
+
+-- Jointure sur trois tables : élément + collection + type
+SELECT e.titre_element, c.nom_collection, t.nom_type
+FROM elements_collection e
+JOIN collections c ON e.id_collection = c.id_collection
+JOIN types_collection t ON c.id_type = t.id_type;`
+                },
             },
             {
-                title: 'Sécurité : Protection PDO et XSS',
-                content: "La sécurité a été une priorité. Toutes les transactions insérant ou modifiant des données utilisent l'objet PDO et des requêtes préparées (pour contrer les injections SQL). De plus, l'affichage des données saisies par l'utilisateur est protégé contre les failles XSS (Cross-Site Scripting) grâce à la fonction PHP htmlspecialchars()."
-            }
+                title: 'CRUD — Lecture avec JOIN',
+                content: "L'affichage des éléments combine les données de plusieurs tables en une seule requête, plutôt que de multiplier les appels au serveur. Pour chaque ligne, on récupère le titre de l'élément, son numéro, le nom de sa collection et son statut de possession. À l'affichage en HTML, les valeurs venant de la base sont systématiquement échappées avec htmlspecialchars pour éviter les attaques XSS.",
+                code: {
+                    title: 'Lecture jointe + affichage sécurisé',
+                    description: "JOIN en SQL pour rapatrier tout en une requête, htmlspecialchars en sortie pour neutraliser le HTML/JS injecté.",
+                    language: 'php',
+                    code: `<?php
+require 'connexion.php';
+
+$sql = "SELECT 
+            e.titre_element,
+            e.numero,
+            c.nom_collection,
+            e.possede
+        FROM elements_collection e
+        JOIN collections c ON e.id_collection = c.id_collection";
+
+$resultat = $pdo->query($sql);
+?>
+
+<table border="1">
+    <tr>
+        <th>Titre</th><th>Numéro</th><th>Collection</th><th>Possédé</th>
+    </tr>
+    <?php foreach($resultat as $row): ?>
+    <tr>
+        <td><?= htmlspecialchars($row['titre_element']) ?></td>
+        <td><?= $row['numero'] ?></td>
+        <td><?= htmlspecialchars($row['nom_collection']) ?></td>
+        <td><?= $row['possede'] ? "Oui" : "Non" ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>`
+                },
+            },
+            {
+                title: 'CRUD — Création avec requête préparée',
+                content: "L'ajout d'un élément se fait via un formulaire HTML. Le PHP récupère les données POST et les insère via une requête préparée PDO avec marqueurs positionnels (?). Cette pratique systématique des requêtes préparées est le rempart fondamental contre les injections SQL : les valeurs envoyées ne peuvent en aucun cas être interprétées comme du code SQL.",
+                code: {
+                    title: 'Insertion via requête préparée',
+                    description: "Aucune concaténation de variables dans la requête — l'utilisateur ne peut pas injecter de SQL.",
+                    language: 'php',
+                    code: `<?php
+require 'connexion.php';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $titre      = $_POST['titre'];
+    $numero     = $_POST['numero'];
+    $collection = $_POST['collection'];
+
+    $sql = "INSERT INTO elements_collection 
+            (titre_element, numero, id_collection) 
+            VALUES (?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$titre, $numero, $collection]);
+
+    echo "Élément ajouté";
+}
+
+// Liste des collections pour le menu déroulant
+$collections = $pdo->query("SELECT * FROM collections");
+?>
+
+<form method="post">
+    <p>Titre : <input type="text" name="titre" /></p>
+    <p>Numéro : <input type="number" name="numero" /></p>
+    <p>Collection :
+        <select name="collection">
+            <?php foreach($collections as $c): ?>
+                <option value="<?= $c['id_collection'] ?>">
+                    <?= htmlspecialchars($c['nom_collection']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
+    <button type="submit">Ajouter</button>
+</form>`
+                },
+            },
+            {
+                title: 'CRUD — Suppression et gestion des dépendances',
+                content: "La suppression d'un élément est plus subtile qu'il n'y paraît : les clés étrangères empêchent de supprimer un élément référencé ailleurs. J'ai donc dû gérer la suppression en cascade manuellement, en supprimant d'abord les enregistrements liés (emprunts associés à l'élément) avant de supprimer l'élément lui-même. C'est un cas concret qui m'a fait comprendre l'utilité réelle des contraintes d'intégrité.",
+                code: {
+                    title: 'Suppression en cascade contrôlée',
+                    description: "On supprime les dépendances avant l'élément principal pour respecter les contraintes de clés étrangères.",
+                    language: 'php',
+                    code: `<?php
+require 'connexion.php';
+
+$id = $_GET['id'];
+
+// 1. Supprimer d'abord les emprunts liés à l'élément
+$stmt = $pdo->prepare("DELETE FROM emprunts WHERE id_element = ?");
+$stmt->execute([$id]);
+
+// 2. Puis supprimer l'élément lui-même
+$stmt = $pdo->prepare("DELETE FROM elements_collection WHERE id_element = ?");
+$stmt->execute([$id]);
+
+header("Location: elements.php");
+?>`
+                },
+            },
+            {
+                title: 'Favoris et gestion de la possession',
+                content: "J'ai ajouté un champ booléen possede sur la table elements_collection, qui permet de distinguer ce que l'utilisateur possède de ce qu'il souhaite acquérir. Une page dédiée affiche uniquement les favoris (possede = 1), avec la possibilité de basculer l'état depuis la liste générale. C'est un exemple typique d'exploitation simple mais utile d'un champ supplémentaire.",
+                image: {
+                    src: '/tp-collection/images/favoris.png',
+                    alt: "Page des favoris",
+                    caption: "Filtrage des éléments possédés via une simple condition WHERE"
+                },
+            },
+            {
+                title: 'Authentification — Hachage bcrypt',
+                content: "L'évolution récente du projet a été l'ajout d'un système d'authentification. Les mots de passe ne sont jamais stockés en clair : à l'inscription, password_hash() avec l'algorithme bcrypt génère une empreinte unique de 60 caractères. À la connexion, password_verify() compare l'empreinte stockée avec le mot de passe fourni, sans jamais le décoder.",
+                image: {
+                    src: '/tp-collection/images/hash.png',
+                    alt: "Hashage bcrypt",
+                    caption: "Hash les mots de passe pour une sécurité renforcée"
+                },
+
+                code: {
+                    title: 'Inscription sécurisée',
+                    description: "password_hash + requête préparée — double rempart contre les attaques sur les identifiants.",
+                    language: 'php',
+                    code: `<?php
+// Hachage du mot de passe (bcrypt par défaut)
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+// Insertion sécurisée en base
+$sql = "INSERT INTO utilisateurs (nom, email, mot_de_passe) 
+        VALUES (:nom, :email, :mot_de_passe)";
+$stmt = $pdo->prepare($sql);
+
+$stmt->execute([
+    ':nom'           => $nom,
+    ':email'         => $mail,
+    ':mot_de_passe'  => $hashed_password
+]);
+?>`
+                },
+
+
+            },
+            {
+                title: 'Traçabilité — Logs de connexion',
+                content: "Pour répondre aux exigences de cybersécurité, j'ai mis en place une table log_connexion qui enregistre chaque tentative de connexion : le pseudo testé, l'adresse IP de l'utilisateur, le statut (succès ou échec) et l'horodatage. Cela permet de détecter à postériori des tentatives d'attaque par force brute, et constitue une trace utilisable pour auditer les accès au système.",
+                image: {
+                    src: '/tp-collection/images/logs.png',
+                    alt: "Table des logs de connexion",
+                    caption: "Audit des connexions : utile pour détecter les anomalies"
+                },
+            },
+            {
+                title: 'Bilan',
+                content: "Ce projet m'a permis d'ancrer durablement les fondamentaux PHP/MySQL. J'ai parcouru les principales étapes d'un projet web sécurisé : modélisation relationnelle, écriture SQL, CRUD complet, sécurisation contre les injections et XSS, authentification avec hachage, traçabilité des accès. C'est sur cette base que je pourrai aborder des frameworks comme Laravel en seconde année.",
+            },
         ],
 
         documents: [],
         images: [],
         codeBlocks: [],
         competences: ['C', 'F', 'G'],
-    }
+    },
 
 ]
 

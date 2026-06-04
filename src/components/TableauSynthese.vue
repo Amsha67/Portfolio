@@ -22,12 +22,7 @@ const realisations = [
         slug: 'portfolio',
         competences: ['E', 'H'],
       },
-      {
-        titre: 'Application Web de gestion de tâches — PHP / MySQL',
-        periode: '15/09/25 → 31/10/25',
-        slug: 'todo-app',
-        competences: ['C', 'F', 'G'],
-      },
+      
       {
         titre: "TP Gestion d'une collection — PHP / MySQL multi-tables",
         periode: '03/11/25 → 12/12/25',
