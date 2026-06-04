@@ -391,33 +391,49 @@ export function calculerScore(
     // ============================================================
     // 04 — PORTFOLIO
     // ============================================================
-
     {
         num: '04',
-        category: 'Cours',
+        category: 'Méta',
         title: 'Portfolio',
-        subtitle: 'Le site actuel',
+        subtitle: 'Développement Front-End & Sécurité',
         date: 'Mai → Juin 2026',
         duration: '',
         location: 'Strasbourg',
         role: 'Développeur Front-end',
-        shortDescription: "Le site que vous visitez. Vue 3 + Vite, composants réutilisables, Dark/Light mode interactif, formulaire sécurisé EmailJS (RGPD, Honeypot).",
-        longDescription: "Conception et développement complets du présent portfolio pour l'épreuve E5. Le projet démontre une maîtrise de Vue 3 (Composition API). J'ai mis un accent fort sur la modularité (création de composants réutilisables comme le Toggle), la persistance des données côté client (localStorage) et la sécurisation du formulaire de contact via une architecture Serverless avec EmailJS.",
+        shortDescription: "Le site que vous visitez. Vue 3 + Vite, architecture orientée composants, Dark/Light mode interactif, formulaire sécurisé EmailJS.",
+        longDescription: "Conception et développement complets du présent portfolio pour l'épreuve E5. L'objectif était de démontrer une maîtrise technique de bout en bout : initialisation de l'environnement avec Vite, structuration modulaire (Vues vs Composants), persistance des données côté client, sécurisation anti-spam et respect du cadre juridique RGPD. Le projet repose sur une architecture Serverless pour l'envoi d'e-mails.",
         stack: ['Vue 3', 'Vite', 'NPM', 'EmailJS', 'CSS Variables'],
         slug: 'portfolio',
         featured: false,
-        liveUrl: null,
-        githubUrl: null,
+        liveUrl: 'https://portfolio-2026-igb0zsetx-amsha67s-projects.vercel.app/',
+        githubUrl: 'https://github.com/Amsha67/portfolio',
 
         sections: [
             {
-                title: 'Architecture Composants & Mode Sombre',
-                content: "Pour démontrer ma maîtrise du DOM et de Vue.js, j'ai développé un composant 'Toggle' de zéro. Il gère la bascule entre le mode jour et le mode nuit en modifiant dynamiquement un attribut `data-theme` sur la balise `<html>`. Toute la charte graphique repose sur des variables CSS, ce qui évite de recharger la page. Le choix de l'utilisateur est persisté dans le `localStorage` du navigateur.",
+                title: 'Initialisation et Environnement de Développement',
+                content: "Le projet a été généré avec l'outil de build Vite, réputé pour sa rapidité d'exécution, couplé au framework Vue 3. Tout l'environnement repose sur Node.js et son gestionnaire de paquets (NPM). Le développement s'effectue en local avec rechargement à chaud (Hot Module Replacement), ce qui permet de voir les modifications en temps réel sans rafraîchir le navigateur.",
                 code: {
-                    title: 'Logique de bascule et persistance (Vue 3)',
-                    description: "Utilisation de ref() pour la réactivité et localStorage pour la persistance entre les sessions.",
+                    title: 'Commandes de base du projet',
+                    description: "Initialisation et lancement du serveur de développement local.",
+                    language: 'bash',
+                    code: `# Création du projet initial avec la dernière version de Vue
+npm create vue@latest
+
+# Installation des dépendances (node_modules)
+npm install
+
+# Lancement du serveur de développement local
+npm run dev`
+                },
+            },
+            {
+                title: 'Architecture Modulaire : Vues et Composants',
+                content: "L'application suit une structure stricte pour séparer la logique de l'interface. J'ai utilisé Vue Router pour gérer la navigation entre les 'Vues' (pages complètes comme l'Accueil ou Contact) sans rechargement de page (concept de Single Page Application). Les éléments d'interface réutilisables, comme le bouton 'Toggle' pour le mode jour/nuit ou les cartes de projets, ont été isolés dans des 'Composants' distincts.",
+                code: {
+                    title: 'Création du composant réutilisable Toggle (Mode Sombre)',
+                    description: "Isolation de la logique de bascule et de la persistance (localStorage) dans un composant dédié.",
                     language: 'javascript',
-                    code: `// Fonction appelée par le composant Toggle
+                    code: `// Dans un composant ou un composable dédié (ex: useTheme.js)
 const toggleTheme = () => {
   const nextTheme = theme.value === 'night' ? 'day' : 'night'
   theme.value = nextTheme
@@ -425,47 +441,22 @@ const toggleTheme = () => {
   // Modification dynamique du DOM pour activer les variables CSS
   document.documentElement.setAttribute('data-theme', nextTheme)
   
-  // Sauvegarde dans le navigateur
+  // Sauvegarde dans le navigateur pour les prochaines visites
   localStorage.setItem('portfolio-theme', nextTheme)
 }`
                 },
             },
             {
-                title: 'Intégration d\'EmailJS via NPM',
-                content: "Plutôt que d'utiliser un simple lien `mailto:` qui ouvre le client lourd de l'utilisateur de manière peu ergonomique, j'ai implémenté l'API EmailJS. L'installation s'est faite via la console (`npm install @emailjs/browser`). Côté back-office EmailJS, j'ai configuré un 'Service' lié à Gmail et un 'Template' qui réceptionne les variables du composant Vue (nom, email, message) pour me générer un mail formaté.",
-                code: {
-                    title: 'Appel API EmailJS',
-                    description: "Envoi asynchrone des données du formulaire vers l'API externe.",
-                    language: 'javascript',
-                    code: `import emailjs from '@emailjs/browser'
-
-// Variables mappées sur le template configuré sur le site EmailJS
-const templateParams = {
-  from_name: form.value.nom,
-  reply_to: form.value.email,
-  message: form.value.message,
-}
-
-// Appel asynchrone avec les clés d'authentification
-await emailjs.send(
-  'SERVICE_ID', 
-  'TEMPLATE_ID', 
-  templateParams, 
-  'PUBLIC_KEY'
-)`
-                },
-            },
-            {
-                title: 'Sécurisation Anti-Spam & RGPD',
-                content: "En l'absence de base de données, les attaques par injection SQL sont impossibles. En revanche, le risque de 'Spam Bot' est réel. J'ai donc implémenté un 'Honeypot' (pot de miel) : un champ input caché en CSS. Les humains ne le voient pas, mais les robots le remplissent systématiquement. Si ce champ est détecté comme plein dans mon code Vue, la fonction s'interrompt. De plus, pour respecter le cadre juridique, le formulaire vérifie le format des adresses via une expression régulière (Regex) et exige une case à cocher explicite validant le consentement RGPD avant toute transmission.",
+                title: 'Sécurisation Anti-Spam & Conformité RGPD',
+                content: "Le formulaire de contact utilise l'API EmailJS, évitant ainsi le déploiement complexe d'un serveur backend (PHP/Node) tout en protégeant mes identifiants d'envoi. Pour garantir la sécurité et répondre aux exigences de la compétence de valorisation de l'image de l'organisation : j'ai implémenté un 'Honeypot' (un champ invisible qui piège les robots spammeurs et bloque l'envoi), une validation par Regex pour s'assurer du format de l'e-mail avec feedback visuel, et une case à cocher explicite pour recueillir le consentement RGPD.",
                 image: {
                     src: '/portfolio/images/formulaire.png',
                     alt: "Aperçu du formulaire de contact sécurisé",
-                    caption: "Interface du formulaire avec champ Honeypot (invisible) et RGPD"
+                    caption: "Interface du formulaire : validation dynamique et consentement RGPD"
                 },
                 code: {
                     title: 'Défense côté client (Honeypot & Regex)',
-                    description: "Structure HTML du pot de miel et validation d'entrée.",
+                    description: "Le Watcher Vue.js vérifie la Regex en temps réel, et le Honeypot est caché en CSS.",
                     language: 'html',
                     code: `<div style="display: none;" aria-hidden="true">
   <input type="text" v-model="form.anti_robot" tabindex="-1" autocomplete="off" />
@@ -473,15 +464,16 @@ await emailjs.send(
 
 <input
   v-model="form.email"
+  :class="{ 'input-error': emailError }"
   type="email"
-  pattern="^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,4}$"
+  placeholder="votre@email.com"
   required
 />`
                 },
             },
             {
-                title: 'Déploiement continu',
-                content: "Le site est versionné sur GitHub et hébergé sur Vercel. J'ai configuré un pipeline de déploiement continu (CI/CD) : chaque commit poussé sur la branche `main` déclenche automatiquement un nouveau processus de compilation Vite (`npm run build`) et met à jour le site en production en quelques secondes.",
+                title: 'Déploiement continu (CI/CD)',
+                content: "L'intégralité du code source est versionnée sur un dépôt distant GitHub. J'ai couplé ce dépôt à la plateforme d'hébergement Vercel. Cette intégration crée un pipeline de déploiement continu (CI/CD) : chaque nouvelle fonctionnalité poussée (push) sur la branche principale déclenche automatiquement une commande de build (`npm run build`) sur les serveurs de Vercel, mettant le site en production instantanément sans interruption de service.",
             },
         ],
 
