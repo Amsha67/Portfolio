@@ -1,28 +1,71 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import emailjs from '@emailjs/browser'
 
 const coordonnees = [
-  { label: 'Email',    value: 'ericschmolzlin@gmail.com',     href: 'mailto:ericschmolzlin@gmail.com' },
+  { label: 'Email',     value: 'ericschmolzlin@gmail.com',     href: 'mailto:ericschmolzlin@gmail.com' },
   { label: 'LinkedIn', value: 'linkedin.com/in/eric-schmoezlin', href: 'https://www.linkedin.com/in/eric-schmoelzlin-824274220' },
   { label: 'GitHub',   value: 'github.com/Amsha67',      href: 'https://github.com/Amsha67' },
-  { label: 'Lieu',     value: 'Strasbourg, Grand Est',          href: null },
+  { label: 'Lieu',     value: 'Strasbourg, Grand Est',         href: null },
 ]
 
-// État formulaire (envoi non implémenté, juste la structure)
 const form = ref({
+  anti_robot: '',
   nom: '',
   email: '',
   message: '',
+  rgpd: false
 })
-const isSent = ref(false)
 
-const handleSubmit = () => {
-  // Pour l'oral : mailto: avec contenu pré-rempli
-  // Pour plus tard : intégration Formspree, EmailJS ou backend Node
-  const subject = encodeURIComponent(`Contact portfolio — ${form.value.nom}`)
-  const body = encodeURIComponent(`De : ${form.value.nom}\nEmail : ${form.value.email}\n\n${form.value.message}`)
-  window.location.href = `mailto:ericschmolzlin@gmail.com?subject=${subject}&body=${body}`
-  isSent.value = true
+const isSent = ref(false)
+const isLoading = ref(false)
+const isError = ref(false)
+const emailError = ref(false)
+
+// Le Watcher observe 'form.value.email' pour la validation visuelle
+watch(() => form.value.email, (nouvelleValeur) => {
+  const regex = /^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,4}$/
+  if (nouvelleValeur !== '' && !regex.test(nouvelleValeur)) {
+    emailError.value = true
+  } else {
+    emailError.value = false
+  }
+})
+
+const handleSubmit = async () => {
+  // Anti-spam caché
+  if (form.value.anti_robot !== '') {
+    isSent.value = true
+    return
+  }
+
+  isLoading.value = true
+  isSent.value = false
+  isError.value = false
+
+  try {
+    //  clés EmailJS 
+    const SERVICE_ID = 'service_a11424q' 
+    const TEMPLATE_ID = 'template_7lwq4fs'
+    const PUBLIC_KEY = 'hZ5QZQ--T-uTjbd_k'
+
+    const templateParams = {
+      from_name: form.value.nom,
+      reply_to: form.value.email,
+      message: form.value.message,
+    }
+
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+
+    isSent.value = true
+    form.value = { anti_robot: '', nom: '', email: '', message: '', rgpd: false }
+    
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du message :', error)
+    isError.value = true
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -40,8 +83,6 @@ const handleSubmit = () => {
       </header>
 
       <div class="contact-grid">
-
-        <!-- Coordonnées -->
         <aside class="coordonnees">
           <h2 class="block-title">Coordonnées</h2>
           <dl class="coord-list">
@@ -58,9 +99,12 @@ const handleSubmit = () => {
           </dl>
         </aside>
 
-        <!-- Formulaire -->
         <form class="contact-form" @submit.prevent="handleSubmit">
           <h2 class="block-title">Envoyer un message</h2>
+
+          <div style="display: none;" aria-hidden="true">
+            <input type="text" v-model="form.anti_robot" tabindex="-1" autocomplete="off" />
+          </div>
 
           <div class="field">
             <label for="nom">Nom</label>
@@ -69,8 +113,10 @@ const handleSubmit = () => {
               v-model="form.nom"
               type="text"
               required
+              maxlength="50"
               autocomplete="name"
               placeholder="Votre nom"
+              :disabled="isLoading"
             />
           </div>
 
@@ -79,11 +125,16 @@ const handleSubmit = () => {
             <input
               id="email"
               v-model="form.email"
+              :class="{ 'input-error': emailError }"
               type="email"
               required
               autocomplete="email"
               placeholder="votre@email.com"
+              :disabled="isLoading"
             />
+            <span v-if="emailError" class="error-message">
+              Le format de l'e-mail semble incorrect.
+            </span>
           </div>
 
           <div class="field">
@@ -94,46 +145,49 @@ const handleSubmit = () => {
               required
               rows="6"
               placeholder="Votre message..."
+              :disabled="isLoading"
             ></textarea>
           </div>
 
-          <button type="submit" class="submit-btn">
-            Envoyer
-            <span class="arrow" aria-hidden="true">→</span>
+          <div class="rgpd-field">
+            <input type="checkbox" id="rgpd" v-model="form.rgpd" required :disabled="isLoading" />
+            <label for="rgpd">
+              J'accepte que mes données soient utilisées pour être recontacté.
+              Aucune donnée n'est conservée en base de données.
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn" :disabled="isLoading || !form.rgpd || emailError">
+            {{ isLoading ? 'Envoi en cours...' : 'Envoyer' }}
+            <span class="arrow" aria-hidden="true" v-if="!isLoading">→</span>
           </button>
 
-          <p v-if="isSent" class="form-sent">
-            Votre client mail s'est ouvert avec le message pré-rempli.
+          <p v-if="isSent" class="form-sent" style="color: #10B981;">
+            ✅ Votre message a bien été envoyé ! Je vous répondrai au plus vite.
           </p>
-
-          <p class="form-info">
-            Ce formulaire ouvre votre client mail avec le message pré-rempli.
-            Vous pouvez aussi écrire directement à
-            <a href="mailto:ericschmolzlin@gmail.com">ericschmolzlin@gmail.com</a>.
+          <p v-if="isError" class="form-sent" style="color: #EF4444;">
+            ❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.
           </p>
         </form>
-
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+
 .contact-page {
   padding: 7rem 2.5rem 6rem;
   min-height: 100vh;
 }
-
 .page-inner {
   max-width: 1100px;
   margin: 0 auto;
 }
-
 .page-header {
   margin-bottom: 4rem;
   max-width: 720px;
 }
-
 .page-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -143,7 +197,6 @@ const handleSubmit = () => {
   margin: 0 0 1rem;
   transition: color 0.5s ease;
 }
-
 .page-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 600;
@@ -153,7 +206,6 @@ const handleSubmit = () => {
   color: var(--text);
   transition: color 0.5s ease;
 }
-
 .page-title em {
   font-family: var(--font-display);
   font-style: italic;
@@ -161,7 +213,6 @@ const handleSubmit = () => {
   color: var(--accent);
   transition: color 0.5s ease;
 }
-
 .page-subtitle {
   font-size: 1.05rem;
   color: var(--text-soft);
@@ -169,14 +220,12 @@ const handleSubmit = () => {
   line-height: 1.65;
   transition: color 0.5s ease;
 }
-
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   gap: 4rem;
   align-items: start;
 }
-
 .block-title {
   font-size: 1.05rem;
   font-weight: 600;
@@ -185,21 +234,16 @@ const handleSubmit = () => {
   color: var(--text);
   transition: color 0.5s ease;
 }
-
-/* Coordonnées */
 .coord-list {
   margin: 0;
 }
-
 .coord-item {
   padding: 1rem 0;
   border-bottom: 1px solid var(--border);
   transition: border-color 0.5s ease;
 }
-
 .coord-item:first-child { padding-top: 0; }
 .coord-item:last-child { border-bottom: none; }
-
 .coord-item dt {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -209,14 +253,12 @@ const handleSubmit = () => {
   margin-bottom: 0.4rem;
   transition: color 0.5s ease;
 }
-
 .coord-item dd {
   margin: 0;
   font-size: 0.95rem;
   color: var(--text);
   transition: color 0.5s ease;
 }
-
 .coord-item dd a {
   display: inline-flex;
   align-items: center;
@@ -225,33 +267,26 @@ const handleSubmit = () => {
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
 .coord-item dd a:hover { color: var(--accent); }
-
 .coord-item .arrow {
   font-size: 0.85em;
   opacity: 0.5;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
 .coord-item dd a:hover .arrow {
   opacity: 1;
   transform: translate(2px, -2px);
 }
-
-/* Formulaire */
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-
 .field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .field label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -260,7 +295,6 @@ const handleSubmit = () => {
   color: var(--text-muted);
   transition: color 0.5s ease;
 }
-
 .field input,
 .field textarea {
   padding: 0.85rem 1rem;
@@ -273,21 +307,17 @@ const handleSubmit = () => {
   resize: vertical;
   min-height: auto;
 }
-
 .field textarea { min-height: 120px; }
-
 .field input::placeholder,
 .field textarea::placeholder {
   color: var(--text-dim);
 }
-
 .field input:focus,
 .field textarea:focus {
   outline: none;
   border-color: var(--accent);
   background: var(--bg);
 }
-
 .submit-btn {
   display: inline-flex;
   align-items: center;
@@ -303,50 +333,72 @@ const handleSubmit = () => {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background: var(--accent-soft);
 }
-
-.submit-btn:hover .arrow {
+.submit-btn:hover:not(:disabled) .arrow {
   transform: translateX(3px);
 }
-
 .submit-btn .arrow {
   display: inline-block;
   transition: transform 0.3s ease;
 }
-
 .form-sent {
   margin: 0;
   font-size: 0.9rem;
-  color: var(--accent);
-  transition: color 0.5s ease;
+  font-family: var(--font-body);
 }
 
-.form-info {
-  font-family: var(--font-mono);
+/* NOUVEAUX STYLES POUR LE FEEDBACK VISUEL ET RGPD */
+.rgpd-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.rgpd-field input[type="checkbox"] {
+  margin-top: 0.25rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.rgpd-field label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.field input.input-error {
+  border-color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.05);
+}
+.field input.input-error:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+.error-message {
+  color: #EF4444;
   font-size: 0.75rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin: 0;
-  transition: color 0.5s ease;
+  font-family: var(--font-body);
+  margin-top: 0.25rem;
+  animation: fadeIn 0.3s ease;
 }
-
-.form-info a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.3s ease;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.form-info a:hover {
-  text-decoration: underline;
-}
-
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
 }
-
 @media (max-width: 640px) {
   .contact-page { padding: 5rem 1.25rem 4rem; }
 }

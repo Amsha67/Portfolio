@@ -22,8 +22,8 @@ export const projects = [
         role: 'Développeur stagiaire',
         shortDescription: "Application de scoring et suivi pour une structure d'accompagnement de personnes neuroatypiques. Tests gratuits, scoring automatisé, envoi de bilans par e-mail.",
         longDescription: "Mission de stage de première année de BTS SIO. J'ai conçu et développé une application web pour Lerneuro, structure d'accompagnement de personnes neuroatypiques. L'application permet aux praticiens d'être mis en avant et aux patients de passer gratuitement des tests reconnus (ASRS, AQ-10, MEWS, AUDIT, CAST, SAS-SV). Le scoring est automatisé selon les barèmes officiels, ce qui accélère significativement le travail du praticien. La suite consistera à mettre en place une base de données et une API avec Laravel.",
-        stack: ['Vue 3', 'TypeScript', 'Pinia', 'Vue Router', 'Vite'],
-        slug: 'nerleuro',
+        stack: ['Vue 3', 'TypeScript', 'Vue Router', 'Vite', 'EmailJS', 'Laravel'],
+        slug: 'lerneuro',
         featured: true,
         liveUrl: null,
         githubUrl: null,
@@ -68,79 +68,140 @@ export const projects = [
                 },
             },
             {
-                title: 'Scoring automatisé',
-                content: "Le scoring calcule le résultat total selon le barème officiel, en gérant automatiquement les questions inversées. Le résultat est ensuite interprété en niveau (faible, modéré, élevé) avec un message orienté vers l'utilisateur et une recommandation de suivi.",
+                title: 'Architecture du scoring',
+                content: "Le scoring est implémenté dans un module unique scoring.ts qui agit comme un répartiteur. Chaque questionnaire (ASRS, AQ-10, AQ-50, MEWS, AUDIT, CAST, SAS-SV) a ses propres règles de calcul et ses propres seuils cliniques. Plutôt que de tout mélanger, j'ai isolé chaque algorithme dans une fonction dédiée, et créé une fonction centrale qui aiguille vers la bonne méthode selon l'identifiant du questionnaire.",
                 image: {
                     src: '/lerneuro/images/resultat.png',
-                    alt: "Résultat du test ASRS",
-                    caption: "Affichage du résultat avec interprétation"
+                    alt: "Résultat affiché à l'utilisateur",
+                    caption: "Restitution du score à l'utilisateur"
                 },
                 code: {
-                    title: 'Algorithme de scoring',
-                    description: "Parcours des réponses, gestion des inversions, interprétation finale du score.",
+                    title: 'Dispatcher : la fonction d\'entrée',
+                    description: "Une seule fonction publique appelée par l'interface. Elle aiguille vers le bon algorithme selon le questionnaire, avec un fallback générique pour les cas simples.",
                     language: 'typescript',
-                    code: `// scoring.ts
-let total = 0
-for (const question of questionnaire.questions) {
-  const reponse = answers[question.id]
-  if (!reponse || !question.options || !question.scores) continue
+                    code: `// scoring.ts — point d'entrée
+export function calculerScore(
+  questionnaire: Questionnaire,
+  answers: Record<string, string>
+): ScoreResult {
 
-  const index = question.options.indexOf(reponse)
-  let score = question.scores[index] ?? 0
+  // Scoring spécialisé : chaque questionnaire qui a
+  // des règles particulières a sa propre fonction
+  if (questionnaire.id === 'asrs')  return calculerASRS(questionnaire, answers)
+  if (questionnaire.id === 'aq10')  return calculerAQ10(questionnaire, answers)
+  if (questionnaire.id === 'aq50')  return calculerAQ50(questionnaire, answers)
+  if (questionnaire.id === 'mews')  return calculerMEWS(questionnaire, answers)
+  if (questionnaire.id === 'audit') return calculerAUDIT(questionnaire, answers)
+  if (questionnaire.id === 'cast')  return calculerCAST(questionnaire, answers)
+  if (questionnaire.id === 'sas')   return calculerSAS(questionnaire, answers)
 
-  if (question.inverted) {
-    const maxScore = Math.max(...question.scores)
-    score = maxScore - score
+  // Fallback : scoring linéaire générique
+  return calculerScoreGenerique(questionnaire, answers)
+}`
+                },
+            },
+            {
+                title: 'Scoring générique',
+                content: "Pour les questionnaires qui suivent une logique simple — un score par réponse, addition de tous les scores, comparaison à un seuil — la fonction générique suffit. Elle parcourt les questions, récupère le score correspondant à la réponse choisie, gère le cas des questions inversées (où une réponse positive doit compter négativement), et accumule le total.",
+                code: {
+                    title: 'Boucle de calcul standard',
+                    description: "Parcours des questions, lecture du score associé à la réponse, gestion des questions inversées.",
+                    language: 'typescript',
+                    code: `function calculerScoreGenerique(
+  questionnaire: Questionnaire,
+  answers: Record<string, string>
+): ScoreResult {
+
+  let total = 0
+
+  for (const question of questionnaire.questions) {
+    const reponse = answers[question.id]
+    if (!reponse || !question.options || !question.scores) continue
+
+    // On retrouve l'index de la réponse choisie
+    const index = question.options.indexOf(reponse)
+    let score = question.scores[index] ?? 0
+
+    // Question inversée : on inverse le barème
+    if (question.inverted) {
+      const maxScore = Math.max(...question.scores)
+      score = maxScore - score
+    }
+
+    total += score
   }
 
-  total += score
-}
+  return interpreterScore(total, questionnaire.id)
+}`
+                },
+            },
+            {
+                title: 'Cas complexe : le scoring ASRS',
+                content: "L'ASRS (dépistage TDAH adulte) est un cas particulier qui m'a obligé à sortir du modèle générique. Il est divisé en deux parties — la partie A (6 questions, score de dépistage clinique) et la partie B (12 questions, score complémentaire) — et son interprétation ne dépend pas du score total mais du nombre de « réponses significatives » dans la partie A. Les seuils ne sont pas non plus les mêmes pour les questions 1 à 3 et 4 à 6.",
+                code: {
+                    title: 'Algorithme ASRS — comptage des réponses significatives',
+                    description: "Distinction partie A / partie B, seuils spécifiques par question, interprétation basée sur le nombre de réponses significatives plutôt que le score brut.",
+                    language: 'typescript',
+                    code: `function calculerASRS(
+  questionnaire: Questionnaire,
+  answers: Record<string, string>
+): ScoreResult {
 
-return interpreterScore(total, questionnaire.id)
+  let partieA = 0, total = 0, reponsesSignificativesA = 0
 
-// Interprétation
-function interpreterScore(total, id) {
-  return {
-    total,
-    scoreMax: 0,
-    level: 'faible',
-    message: 'Résultat calculé.',
-    specialiste: 'Consultez un professionnel de santé.'
+  const questionsA = questionnaire.questions.filter(q => q.partie === 'A')
+  const questionsB = questionnaire.questions.filter(q => q.partie === 'B')
+
+  // Partie A : les 6 questions de dépistage clinique
+  questionsA.forEach((q, i) => {
+    const reponse = answers[q.id]
+    if (!reponse || !q.options || !q.scores) return
+
+    const index = q.options.indexOf(reponse)
+    const score = q.scores[index] ?? 0
+    partieA += score
+    total   += score
+
+    // Seuils ASRS officiels :
+    //  - Q1 à Q3 : "Parfois" ou plus = significatif
+    //  - Q4 à Q6 : "Souvent" ou plus  = significatif
+    if (i < 3 && index >= 2) reponsesSignificativesA++
+    if (i >= 3 && index >= 3) reponsesSignificativesA++
+  })
+
+  // Partie B : score complémentaire, pas utilisé pour le dépistage
+  questionsB.forEach(q => {
+    const reponse = answers[q.id]
+    if (!reponse || !q.options || !q.scores) return
+    const index = q.options.indexOf(reponse)
+    total += q.scores[index] ?? 0
+  })
+
+  // Interprétation : c'est le nombre de réponses
+  // significatives qui déclenche l'alerte clinique
+  if (reponsesSignificativesA >= 4) {
+    return {
+      total, scoreMax: 72, partieA, level: 'eleve',
+      message: 'Symptômes significatifs pouvant correspondre à un TDAH.',
+      specialiste: 'Psychiatre ou neuropsychologue spécialisé TDAH adulte.',
+      details: \`\${reponsesSignificativesA}/6 réponses significatives en partie A\`
+    }
   }
+
+  // ... cas modere et faible
 }`
                 },
             },
             {
                 title: 'Envoi du bilan par e-mail',
-                content: "À la fin du test, l'utilisateur peut recevoir son bilan complet par e-mail. L'envoi est géré côté client via EmailJS, ce qui évite de monter un serveur de mail intermédiaire pendant la phase prototype. Le passage à un envoi serveur (PHPMailer ou équivalent) est prévu lors de l'intégration Laravel.",
+                content: "À la fin du test, l'utilisateur peut telecharger le bilan complet et l'envoi par e-mail. L'envoi est géré côté client via EmailJS, ce qui évite de monter un serveur de mail intermédiaire pendant la phase prototype. Le passage à un envoi serveur (PHPMailer ou équivalent) est prévu lors de l'intégration Laravel.",
                 image: {
                     src: '/lerneuro/images/envoimail.png',
                     alt: "Aperçu d'un bilan envoyé par mail",
                     caption: "Bilan automatisé reçu par le bénéficiaire"
                 },
-                code: {
-                    title: 'Envoi via EmailJS',
-                    description: "Configuration EmailJS et envoi du rapport au bénéficiaire.",
-                    language: 'typescript',
-                    code: `// envoi.ts
-import emailjs from '@emailjs/browser'
 
-const EMAILJS_SERVICE_ID  = 'service_4xyt0rt'
-const EMAILJS_TEMPLATE_ID = 'template_urf5ck9'
-const EMAILJS_PUBLIC_KEY  = 'VOTRE_CLE_PUBLIQUE'
 
-await emailjs.send(
-  EMAILJS_SERVICE_ID,
-  EMAILJS_TEMPLATE_ID,
-  {
-    to_email: email.value,
-    questionnaire: titre,
-    score: result.total,
-    interpretation: result.message
-  },
-  EMAILJS_PUBLIC_KEY
-)`
-                },
             },
             {
                 title: 'Suite du projet',
@@ -149,8 +210,8 @@ await emailjs.send(
         ],
 
         documents: [
-            { label: 'Convention de stage', file: '/lerneuro/docs/convention.pdf', type: 'pdf', description: "Document officiel signé entre l'établissement, Lerneuro et l'étudiant" },
-            { label: 'Cahier des charges', file: '/lerneuro/docs/cahier-des-charges.pdf', type: 'pdf', description: 'Spécifications fonctionnelles et techniques' },
+            { label: 'Convention de stage', file: '/lerneuro/docs/convstage.pdf', type: 'pdf', description: "Document officiel signé " },
+            { label: 'Cahier des charges', file: '/lerneuro/docs/cahier-des-charges.pdf', type: 'pdf', description: 'Cahier des charges du site qui me permet de structurer le développement' },
         ],
 
         images: [],
@@ -185,7 +246,7 @@ await emailjs.send(
                 image: {
                     src: '/clean-co/images/accueil.png',
                     alt: "Page d'accueil du site Clean & CO",
-                    caption: "Page d'accueil du site livré"
+                    caption: "Page d'accueil du site Clean & CO"
                 },
             },
             {
@@ -194,7 +255,7 @@ await emailjs.send(
                 image: {
                     src: '/clean-co/images/devis.png',
                     alt: "Devis Clean & CO",
-                    caption: "Devis "
+                    caption: "Devis Clean & CO"
                 },
             },
             {
@@ -242,7 +303,7 @@ await emailjs.send(
         documents: [
             { label: 'Cahier des charges client', file: '/clean-co/docs/cahier-des-charges.pdf', type: 'pdf', description: "Document rédigé par le client" },
             { label: 'Devis ', file: '/clean-co/docs/devis.pdf', type: 'pdf', description: "Devis 550 € HT, échéancier 50/50" },
-            { label: 'Diagramme de Gantt', file: '/clean-co/docs/gantt.pdf', type: 'pdf', description: "Planning des 5 phases du projet" },
+            { label: 'Diagramme de Gantt', file: '/clean-co/docs/gantt.png', type: 'png', description: "Planning des 5 phases du projet" },
 
         ],
 
@@ -330,18 +391,19 @@ await emailjs.send(
     // ============================================================
     // 04 — PORTFOLIO
     // ============================================================
+
     {
         num: '04',
-        category: 'Méta',
+        category: 'Cours',
         title: 'Portfolio',
-        subtitle: 'Le site que vous visitez',
+        subtitle: 'Le site actuel',
         date: 'Mai → Juin 2026',
         duration: '',
         location: 'Strasbourg',
-        role: 'Solo',
-        shortDescription: "Le site que vous visitez. Vue.js + Vite, hébergé sur Vercel. Toggle jour/nuit, palette sable/nuit.",
-        longDescription: "Conception et développement complets du présent portfolio. Le projet est construit en Vue 3 + Vite, avec Vue Router pour la navigation. La direction artistique propose deux ambiances complémentaires : sable doux et nuit bleutée avec accent or. Le toggle de thème est persistant via localStorage. Le site est responsive et déployé sur Vercel avec déploiement automatique à chaque push Git.",
-        stack: ['Vue 3', 'Vite', 'Vue Router', 'JavaScript', 'CSS'],
+        role: 'Développeur Front-end',
+        shortDescription: "Le site que vous visitez. Vue 3 + Vite, composants réutilisables, Dark/Light mode interactif, formulaire sécurisé EmailJS (RGPD, Honeypot).",
+        longDescription: "Conception et développement complets du présent portfolio pour l'épreuve E5. Le projet démontre une maîtrise de Vue 3 (Composition API). J'ai mis un accent fort sur la modularité (création de composants réutilisables comme le Toggle), la persistance des données côté client (localStorage) et la sécurisation du formulaire de contact via une architecture Serverless avec EmailJS.",
+        stack: ['Vue 3', 'Vite', 'NPM', 'EmailJS', 'CSS Variables'],
         slug: 'portfolio',
         featured: false,
         liveUrl: null,
@@ -349,53 +411,77 @@ await emailjs.send(
 
         sections: [
             {
-                title: 'Objectifs',
-                content: "Disposer d'un portfolio numérique pour présenter mes projets dans le cadre de l'épreuve E5 du BTS SIO. Plutôt qu'un service tout fait ou un thème générique, j'ai préféré le construire de zéro pour démontrer mes compétences en développement front-end moderne.",
-                image: {
-                    src: '/portfolio/images/accueil.png',
-                    alt: "Page d'accueil du portfolio",
-                    caption: "Page d'accueil en mode nuit"
-                },
-            },
-            {
-                title: 'Choix techniques',
-                content: "Vue 3 avec la Composition API, Vite pour le build ultrarapide, Vue Router pour la navigation entre les pages. Pas de framework lourd type Nuxt, ce qui simplifie la compréhension du code et démontre la maîtrise des fondamentaux. Les deux thèmes utilisent les CSS Custom Properties pour basculer sans recompilation.",
+                title: 'Architecture Composants & Mode Sombre',
+                content: "Pour démontrer ma maîtrise du DOM et de Vue.js, j'ai développé un composant 'Toggle' de zéro. Il gère la bascule entre le mode jour et le mode nuit en modifiant dynamiquement un attribut `data-theme` sur la balise `<html>`. Toute la charte graphique repose sur des variables CSS, ce qui évite de recharger la page. Le choix de l'utilisateur est persisté dans le `localStorage` du navigateur.",
                 code: {
-                    title: 'Composable de gestion du thème',
-                    description: "Bascule jour/nuit avec persistance localStorage.",
+                    title: 'Logique de bascule et persistance (Vue 3)',
+                    description: "Utilisation de ref() pour la réactivité et localStorage pour la persistance entre les sessions.",
                     language: 'javascript',
-                    code: `// composables/useTheme.js
-import { ref } from 'vue'
-
-const theme = ref('night')
-
-export function useTheme() {
-  const applyTheme = (next) => {
-    theme.value = next
-    document.documentElement.setAttribute('data-theme', next)
-    localStorage.setItem('portfolio-theme', next)
-  }
-
-  const toggleTheme = () => {
-    applyTheme(theme.value === 'night' ? 'day' : 'night')
-  }
-
-  return { theme, toggleTheme }
+                    code: `// Fonction appelée par le composant Toggle
+const toggleTheme = () => {
+  const nextTheme = theme.value === 'night' ? 'day' : 'night'
+  theme.value = nextTheme
+  
+  // Modification dynamique du DOM pour activer les variables CSS
+  document.documentElement.setAttribute('data-theme', nextTheme)
+  
+  // Sauvegarde dans le navigateur
+  localStorage.setItem('portfolio-theme', nextTheme)
 }`
                 },
             },
             {
-                title: 'Direction artistique',
-                content: "Deux palettes complémentaires : un mode jour en sable doux avec accent terra cotta, et un mode nuit en bleu profond avec accent or. La typographie combine Inter pour le corps et Cormorant Garamond utilisée parcimonieusement pour quelques mots-clés en italique.",
+                title: 'Intégration d\'EmailJS via NPM',
+                content: "Plutôt que d'utiliser un simple lien `mailto:` qui ouvre le client lourd de l'utilisateur de manière peu ergonomique, j'ai implémenté l'API EmailJS. L'installation s'est faite via la console (`npm install @emailjs/browser`). Côté back-office EmailJS, j'ai configuré un 'Service' lié à Gmail et un 'Template' qui réceptionne les variables du composant Vue (nom, email, message) pour me générer un mail formaté.",
+                code: {
+                    title: 'Appel API EmailJS',
+                    description: "Envoi asynchrone des données du formulaire vers l'API externe.",
+                    language: 'javascript',
+                    code: `import emailjs from '@emailjs/browser'
+
+// Variables mappées sur le template configuré sur le site EmailJS
+const templateParams = {
+  from_name: form.value.nom,
+  reply_to: form.value.email,
+  message: form.value.message,
+}
+
+// Appel asynchrone avec les clés d'authentification
+await emailjs.send(
+  'SERVICE_ID', 
+  'TEMPLATE_ID', 
+  templateParams, 
+  'PUBLIC_KEY'
+)`
+                },
+            },
+            {
+                title: 'Sécurisation Anti-Spam & RGPD',
+                content: "En l'absence de base de données, les attaques par injection SQL sont impossibles. En revanche, le risque de 'Spam Bot' est réel. J'ai donc implémenté un 'Honeypot' (pot de miel) : un champ input caché en CSS. Les humains ne le voient pas, mais les robots le remplissent systématiquement. Si ce champ est détecté comme plein dans mon code Vue, la fonction s'interrompt. De plus, pour respecter le cadre juridique, le formulaire vérifie le format des adresses via une expression régulière (Regex) et exige une case à cocher explicite validant le consentement RGPD avant toute transmission.",
                 image: {
-                    src: '/portfolio/images/themes.png',
-                    alt: "Comparaison des deux thèmes",
-                    caption: "Mode jour et mode nuit"
+                    src: '/portfolio/images/formulaire.png',
+                    alt: "Aperçu du formulaire de contact sécurisé",
+                    caption: "Interface du formulaire avec champ Honeypot (invisible) et RGPD"
+                },
+                code: {
+                    title: 'Défense côté client (Honeypot & Regex)',
+                    description: "Structure HTML du pot de miel et validation d'entrée.",
+                    language: 'html',
+                    code: `<div style="display: none;" aria-hidden="true">
+  <input type="text" v-model="form.anti_robot" tabindex="-1" autocomplete="off" />
+</div>
+
+<input
+  v-model="form.email"
+  type="email"
+  pattern="^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,4}$"
+  required
+/>`
                 },
             },
             {
                 title: 'Déploiement continu',
-                content: "Le site est hébergé sur Vercel avec déploiement continu : chaque push sur la branche main déclenche automatiquement un nouveau build et une mise en ligne. Le repo est versionné sur GitHub, ce qui permet un suivi clair des évolutions.",
+                content: "Le site est versionné sur GitHub et hébergé sur Vercel. J'ai configuré un pipeline de déploiement continu (CI/CD) : chaque commit poussé sur la branche `main` déclenche automatiquement un nouveau processus de compilation Vite (`npm run build`) et met à jour le site en production en quelques secondes.",
             },
         ],
 
@@ -404,7 +490,6 @@ export function useTheme() {
         codeBlocks: [],
         competences: ['E', 'F', 'H'],
     },
-
     // ============================================================
     // 05 — TODO APP (Cours)
     // ============================================================
